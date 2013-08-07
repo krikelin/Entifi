@@ -197,6 +197,7 @@
     <Content Include="bin\Debug\libcef.dll" />
     <Content Include="bin\Debug\libEGL.dll" />
     <Content Include="bin\Debug\libGLESv2.dll" />
+    <Content Include="bin\Debug\resources\apps\article\index.html" />
     <Content Include="bin\Debug\resources\apps\entity\index.html" />
     <Content Include="bin\Debug\resources\apps\resources\css\eve.css" />
   </ItemGroup>

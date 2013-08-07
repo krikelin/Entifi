@@ -6,8 +6,19 @@
 	font-family: "MS Sans Serif";
 }
 .btn {
-	display: block;
-	background: #aaaaaa;
+	background: #dddddd;
 	padding: 20px;
+	border-radius: 3px;
+	border:none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-shadow: none;
 	color: black;
+}
+article {
+	width: 60%;
+	background: #FFFFEE;
+	min-height: 640px;
+	padding: 50px;
+	box-sizing: border-box;
 }

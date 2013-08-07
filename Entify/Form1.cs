@@ -46,6 +46,7 @@ namespace Entify
                 application.BringToFront();
                 application.Dock = DockStyle.Fill;
                 application.Navigate(uri);
+                Applications.Add(identifier, application);
             }
 
         }
@@ -53,7 +54,7 @@ namespace Entify
         {
             InitializeComponent();
             RegistredAppTypes.Add("entity", typeof(Apps.entity));
-            this.Navigate("spotify:entity:a");
+            this.Navigate("spotify:article:a");
           
         }
 

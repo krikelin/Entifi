@@ -47,8 +47,8 @@ namespace Entify.Apps
         public override void Navigate(string uri) 
         {
             base.Navigate(uri);
-            if(webView.IsBrowserInitialized)
-            this.webView.LoadHtml("<html></html>");
+          //  if(webView.IsBrowserInitialized)
+          //  this.webView.LoadHtml("<html></html>");
 
             Models.IEntifyService service = new Models.W3Service();
             service.ObjectLoaded += service_ObjectLoaded;

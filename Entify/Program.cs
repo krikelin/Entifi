@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Entify
@@ -63,8 +65,22 @@ namespace Entify
                 if (File.Exists(path))
                 {
                     FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-                    stream = fs;
+                    byte[] bytes = new byte[fs.Length];
+                    fs.Read(bytes, 0, bytes.Length);
+                    MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length);
+                    fs.Close();
+                    stream = ms;
                     mimeType = GetMimeType(path);
+                    if(mimeType == "text/css") 
+                    {
+                        StreamReader sr = new StreamReader(ms);
+                        var css = sr.ReadToEnd();
+                        css = css.Replace("{{primary_color}}", ColorTranslator.ToHtml(Program.form1.BackColor));
+                        css = css.Replace("{{primary_color|rgb}}", String.Format("%s,%s,%s", Program.form1.BackColor.R, Program.form1.BackColor.G, Program.form1.BackColor.B));
+                        css = css.Replace("{{hue}}", Math.Round(Program.form1.BackColor.GetHue()).ToString());
+                        MemoryStream ms2 = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(css), false);
+                        stream = ms2;
+                    }
                     return true;
                 }
             }
@@ -73,6 +89,7 @@ namespace Entify
     }
     static class Program
     {
+        public static Form1 form1;
         
         public static CefSharp.BrowserSettings settings = new CefSharp.BrowserSettings();
         /// <summary>
@@ -86,7 +103,8 @@ namespace Entify
           
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            form1 = new Form1();
+            Application.Run(form1);
         }
     }
 }

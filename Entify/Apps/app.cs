@@ -14,9 +14,11 @@ namespace Entify.Apps
         {
             InitializeComponent();
         }
-        public app(string uri)
+        public Form1 Host;
+        public app(string uri, Form1 host)
         {
             InitializeComponent();
+            this.Host = host;
         }
 
         private void app_Load(object sender, EventArgs e)

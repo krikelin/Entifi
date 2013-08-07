@@ -12,6 +12,22 @@ namespace Entify
 {
     public partial class Form1 : Form
     {
+        internal static class NativeMethods
+        {
+            [DllImport("dwmapi.dll", EntryPoint="#127")]
+            internal static extern void DwmGetColorizationParameters(ref DWMCOLORIZATIONPARAMS color);
+        }
+
+        public struct DWMCOLORIZATIONPARAMS
+        {
+            public uint ColorizationColor, 
+                ColorizationAfterglow, 
+                ColorizationColorBalance, 
+                ColorizationAfterglowBalance, 
+                ColorizationBlurBalance, 
+                ColorizationGlassReflectionIntensity, 
+                ColorizationOpaqueBlend;
+        }
         public Dictionary<String, Type> RegistredAppTypes = new Dictionary<string, Type>();
         public Dictionary<String, Apps.app> Applications = new Dictionary<string, Apps.app>();
         public void Navigate(string uri)
@@ -40,7 +56,7 @@ namespace Entify
                     //throw new Exception("App does not exist");
                     app = "entity";
                 }
-                Apps.app application = (Apps.app)RegistredAppTypes[app].GetConstructor(new System.Type[]{typeof(String)}).Invoke(new Object[]{uri});
+                Apps.app application = (Apps.app)RegistredAppTypes[app].GetConstructor(new System.Type[]{typeof(String), typeof(Form1)}).Invoke(new Object[]{uri, this});
                 this.panel1.Controls.Add(application);
                 application.Show();
                 application.BringToFront();
@@ -50,11 +66,19 @@ namespace Entify
             }
 
         }
+        public DWMCOLORIZATIONPARAMS color = new DWMCOLORIZATIONPARAMS();
         public Form1()
         {
+            
+            NativeMethods.DwmGetColorizationParameters(ref color);
+            this.BackColor =Color.FromArgb(
+                (byte)(true ? 255 : color.ColorizationColor >> 24), 
+                (byte)(color.ColorizationColor >> 16), 
+                (byte)(color.ColorizationColor >> 8), 
+                (byte)(color.ColorizationColor));
             InitializeComponent();
             RegistredAppTypes.Add("entity", typeof(Apps.entity));
-            this.Navigate("spotify:article:a");
+            this.Navigate("spotify:user:drsounds");
           
         }
 

@@ -1,6 +1,9 @@
 ﻿body {
-	background: #eeeeee;
+	background:hsla({{hue}}, 90%, 25%, .08);
 	color: #333333;
+	
+}
+* {
 	text-shadow: 0px 1px 0px white;
 	font-size: 11px;
 	font-family: "MS Sans Serif";
@@ -15,10 +18,30 @@
 	text-shadow: none;
 	color: black;
 }
+.shadow {
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, .2);
+}
 article {
 	width: 60%;
 	background: #FFFFEE;
 	min-height: 640px;
 	padding: 50px;
+}
+.divider {
+	background: -webkit-linear-gradient(-90deg, #ffffff, #dddddd);
+	
+	width: 100%;
+	border-bottom: 1px solid #aaaaaa;
+	border-top: 1px solid #cccccc;
+	box-shadow: inset 0px 1px 2px white;
+	padding: 5px;
+}
+
+html, body {
+	margin: 0px;
+	-webkit-user-select: none;
+}
+* {
+
 	box-sizing: border-box;
 }

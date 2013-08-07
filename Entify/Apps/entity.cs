@@ -22,8 +22,8 @@ namespace Entify.Apps
         }
         public CefSharp.WinForms.WebView webView;
         public string uri;
-        public entity(string uri)
-            : base(uri)
+        public entity(string uri, Form1 host)
+            : base(uri, host)
         {
             var fragments = uri.Split(':');
             var app = fragments[1];
@@ -102,6 +102,24 @@ namespace Entify.Apps
                 }
             }
             
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // entity
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Name = "entity";
+            this.Load += new System.EventHandler(this.entity_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void entity_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

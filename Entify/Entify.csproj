@@ -93,6 +93,9 @@
     <EmbeddedResource Include="Apps\app.resx">
       <DependentUpon>app.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Apps\entity.resx">
+      <DependentUpon>entity.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

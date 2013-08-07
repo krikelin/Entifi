@@ -14,3 +14,4 @@ C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\FS
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\FSharp.PowerPack.dll
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\NDjango.BistroIntegration.dll
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\NDjango.Core.dll
+C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\obj\Debug\Entify.Apps.entity.resources

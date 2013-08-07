@@ -36,6 +36,9 @@
     <Reference Include="AeroGlass">
       <HintPath>..\..\..\..\..\Downloads\AeroGlass_1.2_Full_Package\AeroGlass\AeroGlass.dll</HintPath>
     </Reference>
+    <Reference Include="ASPMVCIntegration">
+      <HintPath>..\..\..\..\..\Downloads\NDjango_0.9.6.0\NDjango_0.9.6.0\ASPMVCIntegration.dll</HintPath>
+    </Reference>
     <Reference Include="CefSharp, Version=1.25.0.25466, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\CefSharp.dll</HintPath>
@@ -43,6 +46,18 @@
     <Reference Include="CefSharp.WinForms, Version=1.25.0.25471, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\CefSharp.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.PowerPack">
+      <HintPath>..\..\..\..\..\Downloads\NDjango_0.9.6.0\NDjango_0.9.6.0\FSharp.PowerPack.dll</HintPath>
+    </Reference>
+    <Reference Include="NDjango.BistroIntegration">
+      <HintPath>..\..\..\..\..\Downloads\NDjango_0.9.6.0\NDjango_0.9.6.0\NDjango.BistroIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="NDjango.Core">
+      <HintPath>..\..\..\..\..\Downloads\NDjango_0.9.6.0\NDjango_0.9.6.0\NDjango.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\..\..\..\..\Downloads\NDjango_0.9.6.0\NDjango_0.9.6.0\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,9 +70,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Template">
-      <HintPath>..\..\..\..\..\Downloads\Template_0.1\Template\Template\Template\bin\Debug\Template.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Apps\app.cs">
@@ -75,6 +87,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entify.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Apps\app.resx">
@@ -93,6 +106,64 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="bin\Debug\debug.log" />
+    <None Include="bin\Debug\devtools_resources.pak" />
+    <None Include="bin\Debug\Entify.exe.config" />
+    <None Include="bin\Debug\Entify.vshost.exe.config" />
+    <None Include="bin\Debug\Entify.vshost.exe.manifest" />
+    <None Include="bin\Debug\locales\am.pak" />
+    <None Include="bin\Debug\locales\ar.pak" />
+    <None Include="bin\Debug\locales\bg.pak" />
+    <None Include="bin\Debug\locales\bn.pak" />
+    <None Include="bin\Debug\locales\ca.pak" />
+    <None Include="bin\Debug\locales\cs.pak" />
+    <None Include="bin\Debug\locales\da.pak" />
+    <None Include="bin\Debug\locales\de.pak" />
+    <None Include="bin\Debug\locales\el.pak" />
+    <None Include="bin\Debug\locales\en-GB.pak" />
+    <None Include="bin\Debug\locales\en-US.pak" />
+    <None Include="bin\Debug\locales\es-419.pak" />
+    <None Include="bin\Debug\locales\es.pak" />
+    <None Include="bin\Debug\locales\et.pak" />
+    <None Include="bin\Debug\locales\fa.pak" />
+    <None Include="bin\Debug\locales\fi.pak" />
+    <None Include="bin\Debug\locales\fil.pak" />
+    <None Include="bin\Debug\locales\fr.pak" />
+    <None Include="bin\Debug\locales\gu.pak" />
+    <None Include="bin\Debug\locales\he.pak" />
+    <None Include="bin\Debug\locales\hi.pak" />
+    <None Include="bin\Debug\locales\hr.pak" />
+    <None Include="bin\Debug\locales\hu.pak" />
+    <None Include="bin\Debug\locales\id.pak" />
+    <None Include="bin\Debug\locales\it.pak" />
+    <None Include="bin\Debug\locales\ja.pak" />
+    <None Include="bin\Debug\locales\kn.pak" />
+    <None Include="bin\Debug\locales\ko.pak" />
+    <None Include="bin\Debug\locales\lt.pak" />
+    <None Include="bin\Debug\locales\lv.pak" />
+    <None Include="bin\Debug\locales\ml.pak" />
+    <None Include="bin\Debug\locales\mr.pak" />
+    <None Include="bin\Debug\locales\ms.pak" />
+    <None Include="bin\Debug\locales\nb.pak" />
+    <None Include="bin\Debug\locales\nl.pak" />
+    <None Include="bin\Debug\locales\pl.pak" />
+    <None Include="bin\Debug\locales\pt-BR.pak" />
+    <None Include="bin\Debug\locales\pt-PT.pak" />
+    <None Include="bin\Debug\locales\ro.pak" />
+    <None Include="bin\Debug\locales\ru.pak" />
+    <None Include="bin\Debug\locales\sk.pak" />
+    <None Include="bin\Debug\locales\sl.pak" />
+    <None Include="bin\Debug\locales\sr.pak" />
+    <None Include="bin\Debug\locales\sv.pak" />
+    <None Include="bin\Debug\locales\sw.pak" />
+    <None Include="bin\Debug\locales\ta.pak" />
+    <None Include="bin\Debug\locales\te.pak" />
+    <None Include="bin\Debug\locales\th.pak" />
+    <None Include="bin\Debug\locales\tr.pak" />
+    <None Include="bin\Debug\locales\uk.pak" />
+    <None Include="bin\Debug\locales\vi.pak" />
+    <None Include="bin\Debug\locales\zh-CN.pak" />
+    <None Include="bin\Debug\locales\zh-TW.pak" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -105,6 +176,29 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\AeroGlass.dll" />
+    <Content Include="bin\Debug\avcodec-54.dll" />
+    <Content Include="bin\Debug\avformat-54.dll" />
+    <Content Include="bin\Debug\avutil-51.dll" />
+    <Content Include="bin\Debug\CefSharp.dll" />
+    <Content Include="bin\Debug\CefSharp.Example.dll" />
+    <Content Include="bin\Debug\CefSharp.WinForms.dll" />
+    <Content Include="bin\Debug\CefSharp.WinForms.Example.exe" />
+    <Content Include="bin\Debug\CefSharp.Wpf.dll" />
+    <Content Include="bin\Debug\CefSharp.Wpf.Example.exe" />
+    <Content Include="bin\Debug\d3dcompiler_43.dll" />
+    <Content Include="bin\Debug\d3dx9_43.dll" />
+    <Content Include="bin\Debug\Entify.exe" />
+    <Content Include="bin\Debug\Entify.pdb" />
+    <Content Include="bin\Debug\Entify.vshost.exe" />
+    <Content Include="bin\Debug\icudt.dll" />
+    <Content Include="bin\Debug\libcef.dll" />
+    <Content Include="bin\Debug\libEGL.dll" />
+    <Content Include="bin\Debug\libGLESv2.dll" />
+    <Content Include="bin\Debug\resources\apps\entity\index.html" />
+    <Content Include="bin\Debug\resources\apps\resources\css\eve.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

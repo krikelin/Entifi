@@ -1,11 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-
 namespace Entify.Apps
 {
     class entity : app
@@ -26,13 +25,15 @@ namespace Entify.Apps
         public entity(string uri)
             : base(uri)
         {
+            var fragments = uri.Split(':');
+            var app = fragments[1];
             this.uri = uri;
             try
             {
                 webView = new CefSharp.WinForms.WebView("about:blank", Program.settings);
                 CefSharp.CEF.RegisterScheme("entify", new EntifySchemeHandlerFactory());
                 webView.PropertyChanged += webView_PropertyChanged;
-
+                template = LoadLocalResource("entify://" + app + "/index.html");
                 webView.Dock = DockStyle.Fill;
                 webViewIsReady = true;
                 this.Controls.Add(webView);
@@ -43,25 +44,64 @@ namespace Entify.Apps
             {
             }
         }
+        public override void Navigate(string uri) 
+        {
+            base.Navigate(uri);
+            if(webView.IsBrowserInitialized)
+            this.webView.LoadHtml("<html></html>");
+
+            Models.IEntifyService service = new Models.W3Service();
+            service.ObjectLoaded += service_ObjectLoaded;
+            service.RequestObjectAsync(uri);
+        }
+
+        void service_ObjectLoaded(object sender, Models.IEntifyService.ObjectLoadedEventArgs e)
+        {
+            String temp_path = Environment.GetEnvironmentVariable("temp") + Path.DirectorySeparatorChar + "entify_razor.tmp";
+            using(StreamWriter sr = new StreamWriter(temp_path)) {
+                sr.Write(template);
+                sr.Close();
+            }
+            using (var writer = new StringWriter())
+            {
+                try
+                {
+                    var context = new Dictionary<String, Object>();
+                    context.Add("data", e.Result);
+                    context.Add("uri", e.Uri);
+                    NDjango.TemplateManagerProvider r = new NDjango.TemplateManagerProvider();
+                    NDjango.Interfaces.ITemplateManager manager =
+                     r.GetNewManager();
+
+
+                    TextReader tr = manager.RenderTemplate(temp_path, context);
+
+                    view = (tr.ReadToEnd().ToString());
+                    if (webView.IsBrowserInitialized)
+                        webView.LoadHtml(view);
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+        string template = "";
+        string view = "";
         public bool webViewIsReady = false;
         void webView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {   
             
-            var fragments = uri.Split(':');
-            var app = fragments[1];
+            
              if (e.PropertyName.Equals("IsBrowserInitialized", StringComparison.OrdinalIgnoreCase))
              {
                
                 if (webView.IsBrowserInitialized)
                 {
-                        webView.LoadHtml(LoadLocalResource("entify://" + app + "/index.html"));
+                        webView.LoadHtml(view);
                     
                 }
             }
             
-        }
-        public override void Navigate(string uri)
-        {
         }
     }
 }

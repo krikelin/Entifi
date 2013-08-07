@@ -1,0 +1,13 @@
+c:\users\alecca\documents\visual studio 2012\Projects\Entify\Entify\bin\Debug\Entify.exe.config
+c:\users\alecca\documents\visual studio 2012\Projects\Entify\Entify\obj\Debug\Entify.csprojResolveAssemblyReference.cache
+c:\users\alecca\documents\visual studio 2012\Projects\Entify\Entify\obj\Debug\Entify.Form1.resources
+c:\users\alecca\documents\visual studio 2012\Projects\Entify\Entify\obj\Debug\Entify.Properties.Resources.resources
+c:\users\alecca\documents\visual studio 2012\Projects\Entify\Entify\obj\Debug\Entify.csproj.GenerateResource.Cache
+c:\users\alecca\documents\visual studio 2012\Projects\Entify\Entify\bin\Debug\Entify.exe
+c:\users\alecca\documents\visual studio 2012\Projects\Entify\Entify\bin\Debug\Entify.pdb
+c:\users\alecca\documents\visual studio 2012\Projects\Entify\Entify\obj\Debug\Entify.exe
+c:\users\alecca\documents\visual studio 2012\Projects\Entify\Entify\obj\Debug\Entify.pdb
+c:\users\alecca\documents\visual studio 2012\Projects\Entify\Entify\bin\Debug\AeroGlass.dll
+c:\users\alecca\documents\visual studio 2012\Projects\Entify\Entify\bin\Debug\Template.dll
+c:\users\alecca\documents\visual studio 2012\Projects\Entify\Entify\bin\Debug\Template.pdb
+c:\users\alecca\documents\visual studio 2012\Projects\Entify\Entify\obj\Debug\Entify.Apps.app.resources

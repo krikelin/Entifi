@@ -1,5 +1,4 @@
 (function(c) {
-	
 	c.application = {
 		onready: null,
 		ontabchange: function (id) {
@@ -7,6 +6,31 @@
 			for(var i = 0; i < sections.length; i++) {
 				sections[i].style.display = sections[i].getAttribute('id') === id ? 'block' : 'none';
 			}
+		},
+		onargumentschanged: function (args) {
+			Entify.subscribe(args.slice(0, 3).join(':'));
+			var d = document.querySelector('#template').innerHTML;
+			var template = slab.compile(d);
+			for(var key in template) {
+				if(template[key] instanceof Function) {
+					console.log("T");
+					document.getElementById('content-'+key).innerHTML = "";
+					
+				}
+			}
+		},
+		onrecievedata: function (data) {
+
+			var d = document.querySelector('#template').innerHTML;
+			var template = slab.compile(d);
+			for(var key in template) {
+				if(template[key] instanceof Function) {
+					console.log("T");
+					document.getElementById('content-'+key).innerHTML = template[key]({data:data, uri:Entify.getUri().split(':')});
+					
+				}
+			}
+			console.log("Data recieved");
 		},
 		activate: function (id) {
 			var tabs = document.querySelectorAll('.e-tab');
@@ -60,4 +84,5 @@
 			});
 	};
 })(this);
+Entify.subscribe(Entify.getUri());
 application.activate('overview');

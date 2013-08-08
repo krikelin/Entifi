@@ -141,8 +141,8 @@ namespace Entify
                         css = css.Replace("{{sat}}", Math.Round(Program.form1.BackColor.GetSaturation() * 100).ToString());
                         css = css.Replace("{{bright}}", Math.Round(Program.form1.BackColor.GetBrightness() * 100).ToString());
                         css = css.Replace("{{theme}}", Properties.Settings  .Default.Theme);
-                        var f = DotlessConfiguration.GetDefault();
-                        css = TransformToCss(css, "a.tmp");
+                        //var f = DotlessConfiguration.GetDefault();
+                       // css = TransformToCss(css, "a.tmp");
 
                         MemoryStream ms2 = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(css), false);
                         stream = ms2;

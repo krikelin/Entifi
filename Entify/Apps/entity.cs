@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using Entify.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,7 +38,9 @@ namespace Entify.Apps
                 webView = new CefSharp.WinForms.WebView("about:blank", Program.settings);
                 CefSharp.CEF.RegisterScheme("entify", new EntifySchemeHandlerFactory());
                 webView.PropertyChanged += webView_PropertyChanged;
+#if(false)
                 template = LoadLocalResource("entify://" + app + "/index.html");
+#endif
                 webView.Dock = DockStyle.Fill;
                 webViewIsReady = true;
                 this.Controls.Add(webView);
@@ -48,20 +51,88 @@ namespace Entify.Apps
             {
             }
         }
-        public override void Navigate(string uri) 
+        public void subscribe(string uri)
         {
-            base.Navigate(uri);
-          //  if(webView.IsBrowserInitialized)
-          //  this.webView.LoadHtml("<html></html>");
-
             Models.IEntifyService service = new Models.W3Service();
             service.ObjectLoaded += service_ObjectLoaded;
             service.RequestObjectAsync(uri);
         }
 
+        public String getUri()
+        {
+            return this.uri;
+        }
+        public class JSEntify
+        {
+            public delegate void EntifyLoaded(string uri);
+            public void entifyLoaded(string uri)
+            {
+                
+            }
+            public entity Host;
+            public JSEntify(entity host)
+            {
+                this.Host = host;
+            }
+            public void subscribe(string uri)
+            {
+                Models.IEntifyService service = new Models.W3Service();
+                service.ObjectLoaded += service_ObjectLoaded;
+                service.RequestObjectAsync(uri);
+            }
+            public string getUri()
+            {
+                return this.Host.uri;
+            }
+            public Hashtable cache = new Hashtable();
+            public string getData(string uri)
+            {
+                if (cache.ContainsKey(uri))
+                    return (string)cache[uri];
+                else
+                    return null;
+            }
+            public void service_ObjectLoaded(object sender, Models.IEntifyService.ObjectLoadedEventArgs e)
+            {
+                if (this.cache.ContainsKey(e.Uri))
+                {
+                    this.cache[e.Uri] = e.Result;
+                }
+                else
+                {
+                    this.cache.Add(e.Uri, e.Result);
+                }
+            //   this.Host.webView.RegisterJsObject("__data", e.Result);
+                this.Host.webView.ExecuteScript("application.onrecievedata(JSON.parse(Entify.getData('" + e.Uri + "')))");
+               
+            }
+        }
+        public override void Navigate(string uri) 
+        {
+            base.Navigate(uri);
+            var app = uri.Split(':')[1];
+            var service = uri.Split(':')[0];
+            if (!this.uri.StartsWith(app + ":" + service))
+            {
+                if(webView.IsBrowserInitialized)
+                webView.Load("entify://" + app + "/index.html");
+            }
+            this.uri = uri;
+            
+            if (webView.IsBrowserInitialized)
+                this.webView.ExecuteScript("application.onargumentschanged('" + uri + "'.split(':'))");
+#if(false)
+            Models.IEntifyService service = new Models.W3Service();
+            service.ObjectLoaded += service_ObjectLoaded;
+            service.RequestObjectAsync(uri);
+#endif
+
+        }
+
         void service_ObjectLoaded(object sender, Models.IEntifyService.ObjectLoadedEventArgs e)
         {
             String temp_path = Environment.GetEnvironmentVariable("temp") + Path.DirectorySeparatorChar + "entify_razor.tmp";
+#if(false)
             using(StreamWriter sr = new StreamWriter(temp_path)) {
                 sr.Write(template);
                 sr.Close();
@@ -87,8 +158,13 @@ namespace Entify.Apps
                 }
                 catch (Exception ex)
                 {
+
                 }
             }
+#else
+         //   this.webView.RegisterJsObject("___data", e.Result);
+       //     this.webView.ExecuteScript("application.onrecievedata(__data)");
+#endif
         }
 
         void inspector_Click(object sender, EventArgs e)
@@ -147,6 +223,7 @@ namespace Entify.Apps
                
                 if (webView.IsBrowserInitialized)
                 {
+
                     ContextMenu cm = new System.Windows.Forms.ContextMenu();
                     MenuItem inspector = new MenuItem();
                     cm.MenuItems.Add(inspector);
@@ -154,12 +231,26 @@ namespace Entify.Apps
                     inspector.Click += inspector_Click;
                     webView.ContextMenu = cm;
                     webView.RequestHandler = new MyRequestHandler(this.Host);
+                    #if(false)
                         webView.LoadHtml(view);
+#else
+                     var fragments = uri.Split(':');
+                      var app = fragments[1];
+                    webView.Load("entify://" + app + "/index.html");
+                    try
+                    {
+                        webView.RegisterJsObject("Entify", new JSEntify(this));
+                    }
+                    catch (Exception xe)
+                    {
+                    }
+#endif
                     
                 }
             }
             
         }
+        
 
         private void InitializeComponent()
         {

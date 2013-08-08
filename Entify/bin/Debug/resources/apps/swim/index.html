@@ -1,14 +1,15 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Article view</title>
     <link rel="stylesheet" href="entify://resources/css/{{theme}}.css" type="text/css" />
     <script src="entify://util/slab.js" type="text/javascript"></script>
+    <script src="entify://resources/scripts/views.js" type="text/javascript"></script>
   </head>
   <body>
-      <script type="text/slab" id="template">
+    <script type="text/slab" id="template">
       {slab main}
-      <table width="100%">
+       <table width="100%">
           <tr>
             <td valign="top" width="64">
               <img src="{data.image}" width="128" height="128" class="img shadow" /></td>
@@ -28,34 +29,22 @@
             </td>
           </tr>
         </table>
-
-          
-          <div class="divider">Properties</div>
-          <table width="100%">
-            <tr>
-              <td width="128" valign="top">
-                 <img class="img shadow" src="{data.image}" width="128" height="128" />
-          
-              </td>
-              <td width="100%" valign="top">
-                <table class="table" width="100%">
-
-                  {for key, value in data}
-                  <tr>
-                    <td>{key}</td>
-                    <td>{value}</td>
-                  </tr>
-                  {end}
-                </table>
-              </td>
-            </tr>
-          </td>
-        </section>
-        {endslab}
-        </script>
-        <div id="content-main">
-        </div>
-        <script src="entify://resources/scripts/views.js" type="text/javascript"></script>
-      </table>
+      <div class="divider">Laps</div>
+      <div class="container">
+      <p>{data.laps}</p>
+      </div>
+      <div class="divider">Metres</div>
+      <div class="container">
+      <p>{data.metres}</p>
+      </div>
+      {endslab}
+    </script>
+    <section id="overview">
+      <div id="content-main">
+       
+      </div>
+    </section>
+    <script src="entify://swim/scripts/main.js" type="text/javascript"></script>
+    
   </body>
 </html>

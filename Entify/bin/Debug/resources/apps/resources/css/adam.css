@@ -1,14 +1,31 @@
 @primary-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
 @tabbar-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
 body, .e-tab-active {
-	background: lightness(@primary-color, -30%);
+	background: saturation(lightness(@primary-color, -30%), -80%);
+}
+.toolbar {
+	width: 100%;
+	height: 32px;
+	padding: 3px;
+	border-radius: 8px;
+	background-color: rgba(0, 0, 0, .5);
+}
+.description {
+	padding: 5px;
 }
 body {
 	/*background:hsla({{hue}}, 90%, 0%, .08);*/
 
-	color: #eeeeee;
+	color: #dddddd;
 	text-shadow: 0px -1px 0px rgba(0, 0, 0, .5);
 	margin: 0px;
+}
+a {
+	text-decoration: none;
+	color: white;
+}
+.description {
+	color: rgba(255, 255, 255, .4);
 }
 .e-tabbar {
 	margin: 0px;
@@ -17,7 +34,7 @@ body {
 	display: block;
 	float: left;
 	list-style: none;
-	height: 28px;
+	height: 23px;
 	padding-left: 15px;
 	padding-right: 15px;
 	padding-top: 5px;
@@ -35,7 +52,7 @@ body {
 	cursor: default;
 	text-shadow: 0px -1px 0px rgba(0, 0, 0, .5);
 	font-size: 11px;
-	font-family: "MS Sans Serif";
+	font-family: "Tahoma";
 }
 a {
 	cursor: pointer;
@@ -118,19 +135,19 @@ nav {
 	background-color: lightness(@tabbar-color, -15%);
 	color: white;
 
-	height: 28px;
+	height: 23px;
 	width: 100%;
 }
 .e-tabbar .e-tab {
 	text-shadow: 0px 1px 0px black;
 	border-right: 1px solid lightness(@tabbar-color, -22%);
 	border-left: 1px solid lightness(@tabbar-color, -22%);
-	height: 28px;
+	height: 23px;
 	
 }
 .e-tabbar .e-tab-active {
 	color: white !important;
-	height: 28px;
+	height: 23px;
 }
 
 article {

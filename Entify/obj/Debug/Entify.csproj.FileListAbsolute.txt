@@ -17,3 +17,5 @@ C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\ND
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\obj\Debug\Entify.Apps.entity.resources
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\obj\Debug\Entify.SearchBox.resources
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\dotless.Core.dll
+C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\Newtonsoft.Json.xml

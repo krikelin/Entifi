@@ -15,5 +15,24 @@ namespace Entify
         {
             InitializeComponent();
         }
+        public String Text
+        {
+            get
+            {
+                return textBox1.Text;
+            }
+            set
+            {
+                textBox1.Text = value;
+            }
+        }
+        public event EventHandler SearchClicked;
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (SearchClicked != null)
+            {
+                SearchClicked(this, new EventArgs());
+            }
+        }
     }
 }

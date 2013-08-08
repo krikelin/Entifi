@@ -10,10 +10,14 @@ namespace Entify.Models
     {
         public override object LoadObject(string uri)
         {
-            return new {
-                title = "test",
-                uri = uri
-            };
+            Dictionary<String,object> result = new Dictionary<string,object>();
+            result.Add("title", "Test");
+            result.Add("price", 20);
+            result.Add("weight", 150);
+            result.Add("height", 160);
+            result.Add("image", "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRLwbS1ceNk8GCHaGrDfPwKZWb4CMutkQS7r2rsoDAHC8aqdQiJ");
+            
+            return result;
         }
     }
     public abstract class IEntifyService

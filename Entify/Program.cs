@@ -39,6 +39,28 @@ namespace Entify
                     FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                     stream = fs;
                     mimeType = GetMimeType(path);
+                    
+
+                    if (mimeType == "text/html")
+                    {
+                        byte[] bytes = new byte[fs.Length];
+                        fs.Read(bytes, 0, bytes.Length);
+                        MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length);
+                        fs.Close();
+                        stream = ms;
+                        StreamReader sr = new StreamReader(ms);
+                        var css = sr.ReadToEnd();
+                        css = css.Replace("{{primary_color}}", ColorTranslator.ToHtml(Program.form1.BackColor));
+                        css = css.Replace("{{primary_color|rgb}}", String.Format("%s,%s,%s", Program.form1.BackColor.R, Program.form1.BackColor.G, Program.form1.BackColor.B));
+                        css = css.Replace("{{hue}}", Math.Round(Program.form1.BackColor.GetHue()).ToString());
+                        css = css.Replace("{{sat}}", Math.Round(Program.form1.BackColor.GetSaturation() * 100).ToString());
+                        css = css.Replace("{{bright}}", Math.Round(Program.form1.BackColor.GetBrightness() * 100).ToString());
+                        css = css.Replace("{{theme}}", Properties.Settings.Default.Theme);
+                  
+
+                        MemoryStream ms2 = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(css), false);
+                        stream = ms2;
+                    }
                     return true;
                 }
             }
@@ -106,6 +128,22 @@ namespace Entify
                         var f =  DotlessConfiguration.GetDefault();
                         css  = TransformToCss(css, "a.tmp");
                        
+                        MemoryStream ms2 = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(css), false);
+                        stream = ms2;
+                    }
+                    if (mimeType == "text/html")
+                    {
+                        StreamReader sr = new StreamReader(ms);
+                        var css = sr.ReadToEnd();
+                        css = css.Replace("{{primary_color}}", ColorTranslator.ToHtml(Program.form1.BackColor));
+                        css = css.Replace("{{primary_color|rgb}}", String.Format("%s,%s,%s", Program.form1.BackColor.R, Program.form1.BackColor.G, Program.form1.BackColor.B));
+                        css = css.Replace("{{hue}}", Math.Round(Program.form1.BackColor.GetHue()).ToString());
+                        css = css.Replace("{{sat}}", Math.Round(Program.form1.BackColor.GetSaturation() * 100).ToString());
+                        css = css.Replace("{{bright}}", Math.Round(Program.form1.BackColor.GetBrightness() * 100).ToString());
+                        css = css.Replace("{{theme}}", Properties.Settings  .Default.Theme);
+                        var f = DotlessConfiguration.GetDefault();
+                        css = TransformToCss(css, "a.tmp");
+
                         MemoryStream ms2 = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(css), false);
                         stream = ms2;
                     }

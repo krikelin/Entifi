@@ -1,10 +1,13 @@
-﻿body, .e-tab-active {
-	background: #efefef;
+@primary-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
+@tabbar-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
+body, .e-tab-active {
+	background: lightness(@primary-color, -30%);
 }
 body {
 	/*background:hsla({{hue}}, 90%, 0%, .08);*/
 
-	color: #333333;
+	color: #eeeeee;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, .5);
 	margin: 0px;
 }
 .e-tabbar {
@@ -27,11 +30,10 @@ body {
 .e-tabbar ul {
 	margin: 0px;
 }
-@tabbar-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
 
 * {
 	cursor: default;
-	text-shadow: 0px 1px 0px white;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, .5);
 	font-size: 11px;
 	font-family: "MS Sans Serif";
 }
@@ -39,14 +41,23 @@ a {
 	cursor: pointer;
 }
 .btn {
-	background: #dddddd;
+	display: block;
+	background: lightness(@primary-color, -20%);
+	width: auto;
 	padding: 20px;
 	border-radius: 3px;
 	border:none;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	text-shadow: none;
-	color: black;
+	color: white;
+}
+.flow li {
+	float :left;
+	list-style: none;
+}
+img {
+	border: none;
 }
 .shadow {
 	box-shadow: 0px 2px 4px rgba(0, 0, 0, .2);
@@ -58,12 +69,11 @@ article {
 	padding: 50px;
 }
 .divider {
-	background: -webkit-linear-gradient(-90deg, #ffffff, #dddddd);
+	background: rgba(255, 255, 255, .25);
+	color: white;
 	
 	width: 100%;
-	border-bottom: 1px solid #aaaaaa;
-	border-top: 1px solid #cccccc;
-	box-shadow: inset 0px 1px 2px white;
+	
 	padding: 5px;
 }
 
@@ -82,38 +92,51 @@ section {
 }
 .table {
 	border-radius: 4px;
-	border: 1px solid #888888;
-	background: white;
+	border-collapse: collapse;
+}
+.table tr:nth-child(2n) {
+	background: rgba(0, 0, 0, .25);
 }
 .table tr td {
-	border-bottom: 1px solid #eeeeee;
 	padding: 3px;
 }
 td.value {
-	background: rgba(0, 0, 0, .05);
+}
+
+.container {
+	padding-left: 10%;
+	padding-right: 10%;
+}
+nav {
+	display: block;
+	width: 100%;
 }
 .e-tabbar {
 	position: fixed;
 	top: 0px;
 	/*background-color: lightness(saturation(@tabbar-color, -35%), 61%);*/
-	background-color: lightness(@tabbar-color, -5%);
+	background-color: lightness(@tabbar-color, -15%);
 	color: white;
 
 	height: 28px;
 	width: 100%;
 }
-.flow li {
-	float :left;
-	list-style: none;
-}
 .e-tabbar .e-tab {
 	text-shadow: 0px 1px 0px black;
-	border-right: 1px solid lightness(@tabbar-color, -12%);
-	border-left: 1px solid lightness(@tabbar-color, -12%);
+	border-right: 1px solid lightness(@tabbar-color, -22%);
+	border-left: 1px solid lightness(@tabbar-color, -22%);
 	height: 28px;
 	
 }
 .e-tabbar .e-tab-active {
-	color: black !important;
+	color: white !important;
 	height: 28px;
+}
+
+article {
+	background: #ffffee;
+	color: black;
+	font-size: 15px;
+	font-family: "Helvetica";
+	padding: 20px;
 }

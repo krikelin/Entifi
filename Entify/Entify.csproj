@@ -191,7 +191,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\AeroGlass.dll" />
@@ -216,8 +218,11 @@
     <Content Include="bin\Debug\resources\apps\article\index.html">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="bin\Debug\resources\apps\entity\index.html" />
+    <Content Include="bin\Debug\resources\apps\entity\index.html">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\resources\apps\resources\css\eve.css" />
+    <None Include="Properties\ic_go.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

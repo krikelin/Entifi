@@ -2,17 +2,24 @@
 <html>
   <head>
     <title>Article view</title>
-    <link rel="stylesheet" href="entify://resources/css/eve.css" type="text/css" />
+    <link rel="stylesheet" href="entify://resources/css/{{theme}}.css" type="text/css" />
+     
   </head>
   <body>
-    <nav>
-      <button class="btn">Back</button>
-      {{uri}}
-    </nav>
-    <article>
-      <h1>{{data.title}}</h1>
-      <p>{{data.ingress}}</p>
-      <p>{{data.text}}</p>
-    </article>
+    <section id="overview">
+     
+      <div class="container">
+      
+        <a class="btn" href="spotify:entity:a">Back</a>
+        
+      </nav>
+        <article>
+          <h1>{{data.title}}</h1>
+          <p>{{data.ingress}}</p>
+          <p>{{data.text}}</p>
+        </article>
+      </div>
+    </section>
+    <script src="entify://resources/scripts/views.js" type="text/javascript"></script>
   </body>
 </html>

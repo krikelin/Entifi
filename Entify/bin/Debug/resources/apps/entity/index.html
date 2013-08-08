@@ -2,13 +2,55 @@
 <html>
   <head>
     <title>Article view</title>
-    <link rel="stylesheet" href="entify://resources/css/eve.css" type="text/css" />
+    <link rel="stylesheet" href="entify://resources/css/{{theme}}.css" type="text/css" />
+    <script src="entify://resources/scripts/views.js" type="text/javascript"></script>
   </head>
   <body>
-    <table width="100%">
-      <tr>
-        <td>Entity lookup for uri {{uri}}</td>
-      </tr>
-    </table>
+    <section id="overview">
+      
+      <table width="100%">
+        <tr>
+          <td width="128" valign="top">
+            <img class="img shadow" src="{{data.image}}" width="128" height="128" />
+          </td>
+          <td valign="top">
+            <h1>{{data.title}}</h1>
+            <p>{{data.description}}</p>
+          </td>
+          <td valign="top" width="30%">
+            <h1>Relations</h1>
+            <ul class="flow">
+              <li><img width="64" height="64" src="{{data.img}}" /></li>
+              <li><img width="64" height="64" src="{{data.img}}" /></li>
+              <li><img width="64" height="64" src="{{data.img}}" /></li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+          
+          <div class="divider">Properties</div>
+          <table width="100%">
+            <tr>
+              <td width="128" valign="top">
+                 <img class="img shadow" src="{{data.image}}" width="128" height="128" />
+          
+              </td>
+              <td width="100%" valign="top">
+                <table class="table" width="100%">
+
+                  {% for key,value in data %}
+                  <tr>
+                    <td>{{key}}</td>
+                    <td class="value">{{value}}</td>
+                  </tr>
+                  {% endfor %}
+                </table>
+              </td>
+            </tr>
+          </td>
+        </section>
+        <script src="entify://entity/scripts/main.js" type="text/javascript"></script>
+      </table>
+    </section>
   </body>
 </html>

@@ -60,3 +60,4 @@
 			});
 	};
 })(this);
+application.activate('overview');

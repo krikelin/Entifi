@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Country</title>
+		<link rel="stylesheet" href="entify://resources/css/{{theme}}.css" type="text/css" />
+  	</head>
+    <script src="entify://resources/scripts/views.js" type="text/javascript"></script>
+
+  	<body>
+      <section id="overview">
+    	 <table width="100%">
+        <tr>
+          <td width="128" valign="top">
+            <img class="img shadow" src="{{data.image}}" width="128" height="128" />
+          </td>
+          <td valign="top">
+            <h1>{{data.title}}</h1>
+            <p>{{data.description}}</p>
+          </td>
+          <td valign="top" width="30%">
+            <h1>Relations</h1>
+            <ul class="flow">
+              <li><img width="64" height="64" src="{{data.img}}" /></li>
+              <li><img width="64" height="64" src="{{data.img}}" /></li>
+              <li><img width="64" height="64" src="{{data.img}}" /></li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    		<div class="divider">Properties</div>
+        <table width="100%">
+          <tr>
+            <td>Weight</td>
+            <td>{{data.weight}}</td>
+            <td>Max speed</td>
+            <td>{{data.max_speed}}</td>
+          </tr>
+        </table>
+      </section>
+      <script src="entify://boat/scripts/boat.js" type="text/javascript"></script>
+  	</body>
+</html>

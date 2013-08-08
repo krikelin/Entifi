@@ -38,6 +38,8 @@ namespace Entify
             }
             string[] fragments = uri.Split(':');
             var service = fragments[0];
+            if (fragments.Length < 3)
+                return;
             var app = fragments[1];
             string identifier = service + ":" + app;
             if (Applications.ContainsKey(identifier))
@@ -78,14 +80,22 @@ namespace Entify
                 (byte)(color.ColorizationColor));
             InitializeComponent();
             RegistredAppTypes.Add("entity", typeof(Apps.entity));
-            this.Navigate("spotify:user:drsounds");
+            Program.form1 = this;
+            this.Navigate("spotify:article      :a");
           
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.searchBox1.SearchClicked += searchBox1_SearchClicked;
+            this.AcceptButton = button1;
             AeroGlass.Glass ew = new Glass();
             ew.extendFrame( glassPane1.Height, 60, 0, 0, this);    
+        }
+
+        void searchBox1_SearchClicked(object sender, EventArgs e)
+        {
+            this.Navigate(this.searchBox1.Text);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -95,7 +105,7 @@ namespace Entify
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Navigate(textBox1.Text);
+            this.Navigate(this.searchBox1.Text);
         }
     }
 }

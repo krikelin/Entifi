@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CefSharp;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -25,9 +26,11 @@ namespace Entify.Apps
         public entity(string uri, Form1 host)
             : base(uri, host)
         {
+            this.Host = host;
 
             var fragments = uri.Split(':');
             var app = fragments[1];
+
             this.uri = uri;
             try
             {
@@ -92,6 +95,46 @@ namespace Entify.Apps
         {
             webView.ShowDevTools();
         }
+        
+        class MyRequestHandler : IRequestHandler
+        {
+            public delegate void Navigate(string uri);
+            public Form1 Host;
+            public MyRequestHandler(Form1 host)
+            {
+                this.Host = host;
+            }
+            public void Navigating(string uri)
+            {
+                this.Host.Navigate(uri);
+            }
+            public bool OnBeforeBrowse(IWebBrowser browser, IRequest request,  NavigationType naigationvType, bool isRedirect)
+            {
+                Host.Invoke(new Navigate(this.Navigating), new Object[]{request.Url});
+                return false;
+            }
+
+
+            public bool GetAuthCredentials(IWebBrowser browser, bool isProxy, string host, int port, string realm, string scheme, ref string username, ref string password)
+            {
+                return true;
+            }
+
+            public bool GetDownloadHandler(IWebBrowser browser, string mimeType, string fileName, long contentLength, ref IDownloadHandler handler)
+            {
+                return true;
+            }
+
+            public bool OnBeforeResourceLoad(IWebBrowser browser, IRequestResponse requestResponse)
+            {
+                return false;
+            }
+
+            public void OnResourceResponse(IWebBrowser browser, string url, int status, string statusText, string mimeType, System.Net.WebHeaderCollection headers)
+            {
+                
+            }
+        }
         string template = "";
         string view = "";
         public bool webViewIsReady = false;
@@ -110,6 +153,7 @@ namespace Entify.Apps
                     inspector.Text = "Show Inspector";
                     inspector.Click += inspector_Click;
                     webView.ContextMenu = cm;
+                    webView.RequestHandler = new MyRequestHandler(this.Host);
                         webView.LoadHtml(view);
                     
                 }

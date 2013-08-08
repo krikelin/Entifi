@@ -58,7 +58,6 @@ namespace Entify.Models
         {
             try
             {
-                Thread.Sleep(1000);
                 WorkerProcess data = new WorkerProcess();
                 data.data = LoadObject((string)e.Argument);
                 data.uri = (String)e.Argument;

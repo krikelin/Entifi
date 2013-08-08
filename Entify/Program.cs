@@ -1,4 +1,9 @@
-﻿using System;
+﻿using dotless.Core.configuration;
+using dotless.Core.Exceptions;
+using dotless.Core.Parser;
+using dotless.Core.Parser.Infrastructure;
+using dotless.Core.Parser.Tree;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -50,6 +55,24 @@ namespace Entify
         }
         public static String ENTIFY_APPS_DIR =  "resources" + Path.DirectorySeparatorChar + "apps";
         public static String ENTIFY_LOCAL_APPS_DIR =  "resources" + Path.DirectorySeparatorChar + "apps";
+        bool Compress = false;
+        Parser Parser;
+        public string TransformToCss(string source, string fileName)
+        {
+            try
+            {
+                this.Parser =new  dotless.Core.Parser.Parser();
+                Ruleset ruleset = this.Parser.Parse(source, fileName);
+                Env env = new Env();
+                env.Compress = this.Compress;
+                Env env2 = env;
+                return ruleset.ToCSS(env2);
+            }
+            catch (ParserException exception)
+            {
+            }
+            return "";
+        }
         public bool ProcessRequest(CefSharp.IRequest request, ref string mimeType, ref System.IO.Stream stream)
         {
             if (request.Url.StartsWith("entify://"))
@@ -78,6 +101,11 @@ namespace Entify
                         css = css.Replace("{{primary_color}}", ColorTranslator.ToHtml(Program.form1.BackColor));
                         css = css.Replace("{{primary_color|rgb}}", String.Format("%s,%s,%s", Program.form1.BackColor.R, Program.form1.BackColor.G, Program.form1.BackColor.B));
                         css = css.Replace("{{hue}}", Math.Round(Program.form1.BackColor.GetHue()).ToString());
+                        css = css.Replace("{{sat}}", Math.Round(Program.form1.BackColor.GetSaturation() * 100).ToString());
+                        css = css.Replace("{{bright}}", Math.Round(Program.form1.BackColor.GetBrightness() * 100).ToString());
+                        var f =  DotlessConfiguration.GetDefault();
+                        css  = TransformToCss(css, "a.tmp");
+                       
                         MemoryStream ms2 = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(css), false);
                         stream = ms2;
                     }

@@ -47,6 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\CefSharp.WinForms.dll</HintPath>
     </Reference>
+    <Reference Include="dotless.Core">
+      <HintPath>..\packages\dotless.1.3.1.0\lib\dotless.Core.dll</HintPath>
+    </Reference>
     <Reference Include="FSharp.PowerPack">
       <HintPath>..\..\..\..\..\Downloads\NDjango_0.9.6.0\NDjango_0.9.6.0\FSharp.PowerPack.dll</HintPath>
     </Reference>
@@ -90,6 +93,12 @@
     <Compile Include="Models\Entify.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SearchBox.Designer.cs">
+      <DependentUpon>SearchBox.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Apps\app.resx">
       <DependentUpon>app.cs</DependentUpon>
     </EmbeddedResource>
@@ -109,6 +118,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SearchBox.resx">
+      <DependentUpon>SearchBox.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="bin\Debug\debug.log" />
     <None Include="bin\Debug\devtools_resources.pak" />
     <None Include="bin\Debug\Entify.exe.config" />
@@ -167,6 +179,7 @@
     <None Include="bin\Debug\locales\vi.pak" />
     <None Include="bin\Debug\locales\zh-CN.pak" />
     <None Include="bin\Debug\locales\zh-TW.pak" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -200,7 +213,9 @@
     <Content Include="bin\Debug\libcef.dll" />
     <Content Include="bin\Debug\libEGL.dll" />
     <Content Include="bin\Debug\libGLESv2.dll" />
-    <Content Include="bin\Debug\resources\apps\article\index.html" />
+    <Content Include="bin\Debug\resources\apps\article\index.html">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\resources\apps\entity\index.html" />
     <Content Include="bin\Debug\resources\apps\resources\css\eve.css" />
   </ItemGroup>

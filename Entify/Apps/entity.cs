@@ -25,6 +25,7 @@ namespace Entify.Apps
         public entity(string uri, Form1 host)
             : base(uri, host)
         {
+
             var fragments = uri.Split(':');
             var app = fragments[1];
             this.uri = uri;
@@ -66,6 +67,7 @@ namespace Entify.Apps
             {
                 try
                 {
+                  
                     var context = new Dictionary<String, Object>();
                     context.Add("data", e.Result);
                     context.Add("uri", e.Uri);
@@ -85,6 +87,11 @@ namespace Entify.Apps
                 }
             }
         }
+
+        void inspector_Click(object sender, EventArgs e)
+        {
+            webView.ShowDevTools();
+        }
         string template = "";
         string view = "";
         public bool webViewIsReady = false;
@@ -97,6 +104,12 @@ namespace Entify.Apps
                
                 if (webView.IsBrowserInitialized)
                 {
+                    ContextMenu cm = new System.Windows.Forms.ContextMenu();
+                    MenuItem inspector = new MenuItem();
+                    cm.MenuItems.Add(inspector);
+                    inspector.Text = "Show Inspector";
+                    inspector.Click += inspector_Click;
+                    webView.ContextMenu = cm;
                         webView.LoadHtml(view);
                     
                 }

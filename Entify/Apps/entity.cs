@@ -64,6 +64,7 @@ namespace Entify.Apps
         }
         public class JSEntify
         {
+            Models.IEntifyService service = new Models.W3Service();
             public delegate void EntifyLoaded(string uri);
             public void entifyLoaded(string uri)
             {
@@ -76,7 +77,6 @@ namespace Entify.Apps
             }
             public void subscribe(string uri)
             {
-                Models.IEntifyService service = new Models.W3Service();
                 service.ObjectLoaded += service_ObjectLoaded;
                 service.RequestObjectAsync(uri);
             }
@@ -85,6 +85,33 @@ namespace Entify.Apps
                 return this.Host.uri;
             }
             public Hashtable cache = new Hashtable();
+            public Hashtable replies = new Hashtable();
+            public void send(string method, string uri, string payload)
+            {
+                service.Sent += service_Sent;
+                service.SendAsync(method, uri, payload);
+            }
+
+            void service_Sent(object sender, IEntifyService.ObjectLoadedEventArgs e)
+            {
+                if (this.replies.ContainsKey(e.Uri))
+                {
+                    this.replies[e.Uri] = e.Result;
+                }
+                else
+                {
+                    this.replies.Add(e.Uri, e.Result);
+                }
+                this.Host.webView.ExecuteScript("application.notify('reply', {uri: '" + e.Uri + "', method: '" + e.Method + "', data: JSON.parse(EntifyCore.getReply('" + e.Uri + "'))})");
+               
+            }
+            public string getReply(string uri)
+            {
+                if (replies.ContainsKey(uri))
+                    return (string)replies[uri];
+                else
+                    return null;
+            }
             public string getData(string uri)
             {
                 if (cache.ContainsKey(uri))
@@ -202,7 +229,8 @@ namespace Entify.Apps
             }
 
             public bool OnBeforeResourceLoad(IWebBrowser browser, IRequestResponse requestResponse)
-            {
+            {   
+                
                 return false;
             }
 
@@ -237,6 +265,7 @@ namespace Entify.Apps
                      var fragments = uri.Split(':');
                       var app = fragments[1];
                     webView.Load("entify://" + app + "/index.html");
+                  
                     try
                     {
                         webView.RegisterJsObject("EntifyCore", new JSEntify(this));

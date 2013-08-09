@@ -43,6 +43,14 @@
 		this.entify = new c.Entify();
 		this.onready = null;
 		var self = this;
+		this.addEventListener('reply', function (e) {
+			console.log(e);
+			try {
+				self.entify.conversations[e.uri].defer(e);
+			} catch (e) {
+				alert(e);
+			}
+		});
 		this.addEventListener('tabchange', function (id) {
 			var sections = document.querySelectorAll('section');
 			for(var i = 0; i < sections.length; i++) {
@@ -100,6 +108,7 @@
 	c.Entify = function () {
 		var self = this;
 		this.subscriptions = [];
+		this.conversations = [];
 		this.subscribe = function (uri) {
 			var promise = new c.Promise();
 			self.subscriptions[uri] = promise;
@@ -108,17 +117,10 @@
 		}
 		this.send = function (method, uri, data) {
 			var xmlHttp = new XMLHttpRequest();
+
 			var promise = new c.Promise();
-			xmlHttp.onreadystatechange = function () {
-				if(xmlHttp.readyState == 4) {
-					if(xmlHttp.status == 200) {
-						var json = JSON.parse(xmlHttp.responseText);
-						promise.defer(json);
-					}
-				}
-			};
-			xmlHttp.open("GET", uri, true);
-			xmlHttp.send(data);
+			self.conversations[uri] = promise;
+			EntifyCore.send(method, uri, JSON.stringify(data));
 			return promise;
 		};
 	};

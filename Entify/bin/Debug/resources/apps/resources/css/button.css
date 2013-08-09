@@ -1,0 +1,32 @@
+@primary-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
+@tabbar-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
+.btn {
+	display: block;
+	background: lightness(@primary-color, -20%);
+	width: auto;
+	padding: 20px;
+	border-radius: 3px;
+	border:none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-shadow: none;
+	color: white;
+	font-weight: bold;
+}
+.btn-follow {
+	background: #77a800;
+	color: white;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, .5);
+}
+.btn:active {
+	box-shadow:inset 0px 2px 5px rgba(0, 0, 0, .25);
+}
+.btn-subscribed {
+	background: #772200;
+	
+}
+.btn-subscribed:hover {
+	background: #fafafa;
+	color: black;
+	text-shadow: 0px 1px 0px white;
+}

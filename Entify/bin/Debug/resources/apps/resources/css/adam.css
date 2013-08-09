@@ -1,3 +1,4 @@
+@import url('entify://resources/css/button.css');
 @primary-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
 @tabbar-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
 body, .e-tab-active {
@@ -20,11 +21,7 @@ body {
 	text-shadow: 0px -1px 0px rgba(0, 0, 0, .5);
 	margin: 0px;
 }
-.btn-follow {
-	background: #77a800;
-	color: white;
-	text-shadow: 0px -1px 0px rgba(0, 0, 0, .5);
-}
+
 a {
 	text-decoration: none;
 	color: white;
@@ -63,18 +60,7 @@ a {
 a {
 	cursor: pointer;
 }
-.btn {
-	display: block;
-	background: lightness(@primary-color, -20%);
-	width: auto;
-	padding: 20px;
-	border-radius: 3px;
-	border:none;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	text-shadow: none;
-	color: white;
-}
+
 .flow li {
 	float :left;
 	list-style: none;
@@ -163,3 +149,4 @@ article {
 	font-family: "Helvetica";
 	padding: 20px;
 }
+

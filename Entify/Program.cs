@@ -97,6 +97,7 @@ namespace Entify
         }
         public bool ProcessRequest(CefSharp.IRequest request, ref string mimeType, ref System.IO.Stream stream)
         {
+            
             if (request.Url.StartsWith("entify://"))
             {
                 request.Url = request.Url.Substring("entify://".Length);
@@ -164,6 +165,10 @@ namespace Entify
         [STAThread]
         static void Main()
         {
+            settings.WebSecurityDisabled = true;
+            settings.FileAccessFromFileUrlsAllowed = true;
+            settings.UniversalAccessFromFileUrlsAllowed = true;
+            settings.TextAreaResizeDisabled = true;
             CefSharp.CEF.RegisterScheme("entify", new EntifySchemeHandlerFactory()); 
       //      CefSharp.CEF.RegisterJsObject("Entify", null);
           

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -51,6 +52,30 @@ namespace Entify.Models
             cache.Add(uri, res);
             return res;
         }
+
+        public override object Request(string method, string uri, string payload)
+        {
+            Thread.Sleep((int)new Random().Next(0, 3000));
+            if(method == "PUT") {
+                JObject json = JObject.Parse(payload);
+                if (cache.ContainsKey(uri))
+                {
+                    Hashtable obj = (Hashtable)cache[uri];
+                    foreach(KeyValuePair<string, JToken> o in json) 
+                    {
+                        if (cache.ContainsKey(o.Key))
+                        {
+                            cache[o.Key] = o.Value.ToString();
+                        }
+                        else
+                        {
+                            cache.Add(o.Key, o.Value.ToString());
+                        }
+                    }
+                }
+            }
+            return null;
+        }
     }
     public abstract class IEntifyService
     {
@@ -60,13 +85,15 @@ namespace Entify.Models
         /// <param name="uri"></param>
         /// <returns></returns>
         public abstract Object LoadObject(string uri);
-
+        public abstract Object Request(string method, string uri, string payload);
         public class ObjectLoadedEventArgs {
             public IEntifyService Service;
             public Object Result;
+            public String Method = "GET";
           
             public String Uri;
         }
+        public event ObjectLoadedEventHandler Sent;
         public delegate void ObjectLoadedEventHandler(object sender, ObjectLoadedEventArgs e);
         public event ObjectLoadedEventHandler ObjectLoaded;
         public void RequestObjectAsync(string uri)
@@ -83,12 +110,13 @@ namespace Entify.Models
             WorkerProcess p = (WorkerProcess)e.Result;
             if (ObjectLoaded != null)
             {
-                ObjectLoaded(this, new ObjectLoadedEventArgs() { Result = p.data, Uri = p.uri });
+                ObjectLoaded(this, new ObjectLoadedEventArgs() { Result = p.data, Uri = p.uri, Method = p.method });
             }
         }
         public class WorkerProcess {
             public String uri;
             public object data;
+            public string method;
         }
         void bw_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -99,6 +127,43 @@ namespace Entify.Models
                 data.data = LoadObject((string)e.Argument);
                 data.uri = (String)e.Argument;
                 e.Result = data;
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        internal void SendAsync(string method, string uri, string payload)
+        {
+            BackgroundWorker sendWorker = new BackgroundWorker();
+            sendWorker.DoWork += sendWorker_DoWork;
+            sendWorker.RunWorkerCompleted += sendWorker_RunWorkerCompleted;
+            sendWorker.RunWorkerAsync(new object[] {method, uri, payload});
+        }
+
+        void sendWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+            WorkerProcess p = (WorkerProcess)e.Result;
+            if (Sent != null)
+            {
+                Sent(this, new ObjectLoadedEventArgs() { Result = p.data, Uri = p.uri, Method = p.method });
+            }
+        }
+
+        void sendWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                object[] data = (object[])e.Argument;
+                string method = (string)data[0];
+                string url = (string)data[1];
+                string payload = (string)data[2];
+                WorkerProcess wp = new WorkerProcess();
+                wp.method = method;
+                wp.data = Request((string)method, (string)url, payload);
+                wp.uri = (String)url;
+                e.Result = wp;
             }
             catch (Exception ex)
             {

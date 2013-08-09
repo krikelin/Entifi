@@ -62,7 +62,7 @@
 				}
 			}
 		});
-		this.addEventListener('activate', function (id) {
+		this.activate = function (id) {
 			var tabs = document.querySelectorAll('.e-tab');
 			for(var i = 0; i < tabs.length; i++) {
 				var tab = tabs[i];
@@ -76,7 +76,7 @@
 			if(c.application.ontabchange instanceof Function)
 				c.application.ontabchange.call(this, id);
 					
-		});
+		};
 		this.nodes = [];
 		this.addEventListener('recievedata', function (data) {
 			console.log(data);
@@ -98,26 +98,27 @@
 
 	};
 	c.View.prototype = new c.Observable();
-	c.View.prototype.constructor = new Observable;
+	c.View.prototype.constructor = Observable;
 	c.TabBar = function (data) {
 		this.node = document.createElement('div');
 		this.node.classList.add('e-tabbar');
 		var tabul = document.createElement('ul');
 		this.node.appendChild(tabul);
-
+		var self = this;
 		var tabs = data.tabs;
 		for(var i = 0; i < data.tabs.length; i++) {
-			var tab = new c.Tab(data.tabs[i]);
+			var tab = new c.Tab(data.tabs[i], self);
+			
 			tabul.appendChild(tab.node);
 			
 
 		}
-		c.application.activate('overview');
 	};
 	c.TabBar.prototype = new c.View();
 	c.TabBar.prototype.constructor =  c.View;
 
-	c.Tab = function (data) {
+	c.Tab = function (data, tabbar) {
+		this.tabbar = tabbar;
 		this.node = document.createElement('li');
 		this.node.classList.add('e-tab');
 		this.node.innerText = data.title;
@@ -126,10 +127,14 @@
 		this.node.setAttribute('data-id', data.id);
 		var self = this;
 		this.node.addEventListener('mousedown', function (e) {
-				c.application.activate(self.node.getAttribute('data-id'));
-				
-			});
+			//c.application.activate(self.node.getAttribute('data-id'));
+			var data = {id:self.node.getAttribute('data-id')};
+			self.notify('activated', data);
+			self.tabbar.notify('tabchanged', data);
+		});
 	};
+	c.TabBar.prototype = new c.Observable();
+	c.TabBar.prototype.constructor = c.Observable;
 	c.Entify = function () {
 		var self = this;
 		this.subscriptions = [];

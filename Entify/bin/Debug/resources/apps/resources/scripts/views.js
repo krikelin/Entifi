@@ -40,14 +40,19 @@
 	c.BaseButton.prototype = new c.View();
 	c.BaseButton.prototype.constructor = c.View;
 	
-	c.FollowButton = function (uri, args) {
+	c.FollowButton = function (node, args) {
 		var self = this;
+		this.enode = node;
 		console.log(args);
 		this.node.classList.add('btn-follow');
+		if(this.enode.data.following) {
+			this.node.classList.add('btn-subscribed');
+			this.node.innerHTML = "Following";
+		}
 		this.addEventListener('click', function () {
-			c.application.entify.send('POST', uri, {action:'follow'}).done(function (d) {
+			c.application.entify.send('PUT', self.enode.uri, {following: true}).done(function (d) {
 				self.node.classList.add('btn-subscribed');
-				self.applyOptions({text:'Unfollow'});
+				self.applyOptions({text:'Following'});
 				console.log('subscribed');
 			});
 		})
@@ -56,12 +61,12 @@
 	c.FollowButton.prototype = new c.BaseButton();
 	c.FollowButton.prototype.constructor = c.BaseButton;
 	
-	c.FollowButton.forNode = function (uri, args) {
+	c.FollowButton.forNode = function (node, args) {
 
 		
 		
 		args.text = 'Follow';
-		return new c.FollowButton(uri, args);
+		return new c.FollowButton(node, args);
 	};
 	
 

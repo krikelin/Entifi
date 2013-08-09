@@ -34,7 +34,7 @@ namespace Entify.Models
         {
             if (cache.ContainsKey(uri))
             {
-                return cache[uri];
+                return Newtonsoft.Json.JsonConvert.SerializeObject(cache[uri]);
             }
             Thread.Sleep((int)new Random().Next(0, 3000));
             Hashtable result = new Hashtable();
@@ -45,11 +45,12 @@ namespace Entify.Models
             result.Add("height", 160);
             result.Add("laps", new Random().Next(1, 16));
             result.Add("depth", 160);
+            result.Add("following", false);
             result.Add("image", "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRLwbS1ceNk8GCHaGrDfPwKZWb4CMutkQS7r2rsoDAHC8aqdQiJ");
             
             var res = Newtonsoft.Json.JsonConvert.SerializeObject(result);
             if(!cache.ContainsKey(uri))
-            cache.Add(uri, res);
+            cache.Add(uri, result);
             return res;
         }
 
@@ -63,13 +64,13 @@ namespace Entify.Models
                     Hashtable obj = (Hashtable)cache[uri];
                     foreach(KeyValuePair<string, JToken> o in json) 
                     {
-                        if (cache.ContainsKey(o.Key))
+                        if (obj.ContainsKey(o.Key))
                         {
-                            cache[o.Key] = o.Value.ToString();
+                            obj[o.Key] = o.Value.ToString();
                         }
                         else
                         {
-                            cache.Add(o.Key, o.Value.ToString());
+                            obj.Add(o.Key, o.Value.ToString());
                         }
                     }
                 }

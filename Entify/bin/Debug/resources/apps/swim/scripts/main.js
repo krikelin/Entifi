@@ -1,6 +1,7 @@
 
 
 application.entify.subscribe(EntifyCore.getUri()).done(function (args) {
+	var node = args;
 	console.log("A");
 	var d = document.querySelector('#template').innerHTML;
 	var template = slab.compile(d);
@@ -27,6 +28,6 @@ application.entify.subscribe(EntifyCore.getUri()).done(function (args) {
 	});
 	application.activate('overview');
 
-	var followButton = FollowButton.forNode(EntifyCore.getUri(), {});
+	var followButton = FollowButton.forNode(node, {});
 	document.querySelector('#toolbar').appendChild(followButton.node);
 })

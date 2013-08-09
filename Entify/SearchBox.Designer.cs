@@ -39,19 +39,19 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(6, 7);
+            this.textBox1.Location = new System.Drawing.Point(3, 1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(114, 13);
+            this.textBox1.Size = new System.Drawing.Size(79, 13);
             this.textBox1.TabIndex = 0;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackgroundImage = global::Entify.Properties.Resources.ic_go;
-            this.pictureBox1.Location = new System.Drawing.Point(124, 1);
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Location = new System.Drawing.Point(99, 1);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(25, 23);
+            this.pictureBox1.Size = new System.Drawing.Size(16, 15);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -65,7 +65,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.textBox1);
             this.Name = "SearchBox";
-            this.Size = new System.Drawing.Size(152, 27);
+            this.Size = new System.Drawing.Size(117, 17);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

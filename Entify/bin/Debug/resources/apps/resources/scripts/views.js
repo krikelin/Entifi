@@ -47,10 +47,10 @@
 		this.node.classList.add('btn-follow');
 		if(this.enode.data.following) {
 			this.node.classList.add('btn-subscribed');
-			this.node.innerHTML = "Following";
+			this.applyOptions({'title': 'Following'})
 		}
 		this.addEventListener('click', function () {
-			c.application.entify.send('PUT', self.enode.uri, {following: true}).done(function (d) {
+			c.application.entify.send('PUT', self.enode.uri, {following: !self.enode.data.following}).done(function (d) {
 				self.node.classList.add('btn-subscribed');
 				self.applyOptions({text:'Following'});
 				console.log('subscribed');

@@ -48,7 +48,7 @@
 			try {
 				self.entify.conversations[e.uri].defer(e);
 			} catch (e) {
-				alert(e);
+				//alert(e);
 			}
 		});
 		this.addEventListener('tabchange', function (id) {

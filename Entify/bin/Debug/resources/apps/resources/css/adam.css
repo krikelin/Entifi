@@ -2,7 +2,8 @@
 @primary-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
 @tabbar-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
 body, .e-tab-active {
-	background: saturation(lightness(@primary-color, -30%), -80%);
+
+	background: lighten(saturation(@primary-color, -20%), -35%)
 }
 .toolbar {
 	width: 100%;
@@ -15,7 +16,6 @@ body, .e-tab-active {
 	padding: 5px;
 }
 body {
-	/*background:hsla({{hue}}, 90%, 0%, .08);*/
 
 	color: #dddddd;
 	text-shadow: 0px -1px 0px rgba(0, 0, 0, .5);
@@ -123,8 +123,9 @@ nav {
 .e-tabbar {
 	position: fixed;
 	top: 0px;
-	/*background-color: lightness(saturation(@tabbar-color, -35%), 61%);*/
+	
 	background-color: lightness(@tabbar-color, -15%);
+	background-color: lightness(saturation(@tabbar-color, -25%), -21%);
 	color: white;
 
 	height: 23px;

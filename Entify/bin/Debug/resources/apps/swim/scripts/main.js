@@ -1,16 +1,4 @@
-var tabBar = new TabBar({
-	tabs: [
-		{ 
-			id:'overview',
-			title:'Overview'
-		}
-	]
-});
-tabBar.addToDom(document.body, 'prepend');
-tabBar.addEventListener('tabchanged', function(e) {
-	application.activate(e.id);
-});
-application.activate('overview');
+
 
 application.entify.subscribe(EntifyCore.getUri()).done(function (args) {
 	console.log("A");
@@ -25,4 +13,17 @@ application.entify.subscribe(EntifyCore.getUri()).done(function (args) {
 		}
 	}
 	console.log(args);
+	var tabBar = new TabBar({
+		tabs: [
+			{ 
+				id:'overview',
+				title:'Overview'
+			}
+		]
+	});
+	tabBar.addToDom(document.body, 'prepend');
+	tabBar.addEventListener('tabchanged', function(e) {
+		application.activate(e.id);
+	});
+	application.activate('overview');
 })

@@ -26,4 +26,7 @@ application.entify.subscribe(EntifyCore.getUri()).done(function (args) {
 		application.activate(e.id);
 	});
 	application.activate('overview');
+
+	var followButton = FollowButton.forNode(EntifyCore.getUri(), {});
+	document.querySelector('#toolbar').appendChild(followButton.node);
 })

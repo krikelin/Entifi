@@ -24,6 +24,9 @@ body {
 	box-shadow: inset 0px 1px 3px rgba(0, 0, 0, .2);
 	/*background: hsla({{hue}}, 70%, 55% , 1.0);*/
 }
+.follow {
+	
+}
 .e-tabbar ul {
 	margin: 0px;
 }

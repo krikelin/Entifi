@@ -1,12 +1,45 @@
 (function(c) {
 	
-	
+
 	c.View = function () {
 		this.node = document.createElement('div');
 
 	};
 	c.View.prototype = new c.Observable();
 	c.View.prototype.constructor = Observable;
+	c.BaseButton = function (uri, args) {
+		this.node = document.createElement('button');
+		var self = this;
+		this.node.classList.add('btn');
+		var self = this;
+		this.node.addEventListener('click', function (c) {
+			self.notify('click', c);
+		})
+	};
+	c.BaseButton.forNode = function (uri, args) {
+		return new c.BaseButton(uri, args);
+	};
+	c.BaseButton.prototype = new c.View();
+	c.BaseButton.prototype.constructor = c.View;
+	
+	c.FollowButton = function (uri, args) {
+		var self = this;
+		this.node.classList.add('btn-follow');
+		this.addEventListener('click', function () {
+			c.application.entify.send('POST', uri, {action:'follow'}).done(function (d) {
+				self.node.classList.add('btn-subscribed');
+				console.log('subscribed');
+			});
+		})
+	};
+	c.FollowButton.forNode = function (uri, args) {
+		return new c.FollowButton(uri, args);
+	};
+	c.FollowButton.prototype = new c.BaseButton();
+	c.FollowButton.prototype.constructor = c.BaseButton;
+	
+
+
 	c.TabBar = function (data) {
 		this.addToDom = function (parent, type) {
 			if(type === 'prepend') {

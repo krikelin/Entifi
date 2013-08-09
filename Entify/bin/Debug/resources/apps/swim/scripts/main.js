@@ -1,11 +1,12 @@
 var tabBar = new TabBar({
 	tabs: [
 		{ 
-			id:'Overview',
+			id:'overview',
 			title:'Overview'
 		}
 	]
 });
+tabBar.addToDom(document.body, 'prepend');
 tabBar.addEventListener('tabchanged', function(e) {
 	application.activate(e.id);
 });

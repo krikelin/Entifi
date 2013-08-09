@@ -73,9 +73,15 @@
 					tab.classList.remove('e-tab-active');
 				}
 			}
-			if(c.application.ontabchange instanceof Function)
-				c.application.ontabchange.call(this, id);
-					
+			
+			c.application.notify('tabchange', id);
+		
+			var sections = document.querySelectorAll('section');
+			for(var i = 0; i < sections.length; i++) {
+				sections[i].style.display = sections[i].getAttribute('id') === id ? 'block' : 'none';
+			}
+			
+			
 		};
 		this.nodes = [];
 		this.addEventListener('recievedata', function (data) {
@@ -100,6 +106,11 @@
 	c.View.prototype = new c.Observable();
 	c.View.prototype.constructor = Observable;
 	c.TabBar = function (data) {
+		this.addToDom = function (parent, type) {
+			if(type === 'prepend') {
+				parent.parentNode.insertBefore(tabBar.node, parent);
+			}
+		};
 		this.node = document.createElement('div');
 		this.node.classList.add('e-tabbar');
 		var tabul = document.createElement('ul');
@@ -133,8 +144,9 @@
 			self.tabbar.notify('tabchanged', data);
 		});
 	};
-	c.TabBar.prototype = new c.Observable();
-	c.TabBar.prototype.constructor = c.Observable;
+
+	c.Tab.prototype = new c.Observable();
+	c.Tab.prototype.constructor = c.Observable;
 	c.Entify = function () {
 		var self = this;
 		this.subscriptions = [];

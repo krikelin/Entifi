@@ -103,7 +103,7 @@ namespace Entify.Apps
                     this.cache.Add(e.Uri, e.Result);
                 }
             //   this.Host.webView.RegisterJsObject("__data", e.Result);
-                this.Host.webView.ExecuteScript("application.onrecievedata(JSON.parse(Entify.getData('" + e.Uri + "')))");
+                this.Host.webView.ExecuteScript("application.notify('recievedata', {data: JSON.parse(EntifyCore.getData('" + e.Uri + "')), uri: '" + e.Uri + "'})");
                
             }
         }
@@ -239,7 +239,7 @@ namespace Entify.Apps
                     webView.Load("entify://" + app + "/index.html");
                     try
                     {
-                        webView.RegisterJsObject("Entify", new JSEntify(this));
+                        webView.RegisterJsObject("EntifyCore", new JSEntify(this));
                     }
                     catch (Exception xe)
                     {

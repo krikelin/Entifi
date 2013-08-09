@@ -19,3 +19,4 @@ C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\obj\Debug\En
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\dotless.Core.dll
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\obj\Debug\Entify.Navigator.resources

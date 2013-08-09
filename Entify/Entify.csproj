@@ -94,6 +94,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Entify.cs" />
+    <Compile Include="Navigator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Navigator.Designer.cs">
+      <DependentUpon>Navigator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchBox.cs">
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Navigator.resx">
+      <DependentUpon>Navigator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -225,6 +234,11 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="bin\Debug\resources\apps\resources\css\eve.css" />
+    <None Include="Properties\ic_forward_vista_enabled.png" />
+    <None Include="Properties\ic_back_vista_enabled.png" />
+    <None Include="Properties\ic_forward_vista_disabled.png" />
+    <None Include="Properties\ic_back_vista_disabled.png" />
+    <None Include="Properties\ic_btn_bar_vista_normal.png" />
     <None Include="Properties\ic_go.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

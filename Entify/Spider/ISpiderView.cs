@@ -7,10 +7,13 @@ using Entify.Spider.Scripting;
 
 namespace Entify.Spider
 {
+    
     public interface ISpiderView
     {
         IScriptEngine Runtime { get; set; }
         Preprocessor.IPreprocessor Preprocessor { get; set; }
         Object Token { get; set; }
+        string Process(string shtml);
+
     }
 }

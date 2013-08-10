@@ -2,6 +2,8 @@
 using Entify.Models;
 using Entify.Spider;
 using Entify.Spider.Scripting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,6 +29,7 @@ namespace Entify.Apps
 
         }
         public CefSharp.WinForms.WebView webView;
+        EntifyScheme entifyScheme = null;
         public string uri;
         public entity(string uri, Form1 host)
             : base(uri, host)
@@ -34,7 +37,7 @@ namespace Entify.Apps
             this.Host = host;
             this.Runtime = new Spider.Scripting.LuaInterpreter(this);
             this.Preprocessor = new Spider.Preprocessor.LuaMako(this);
-
+            entifyScheme = new EntifyScheme(this);
             var fragments = uri.Split(':');
             var app = fragments[1];
 
@@ -42,7 +45,7 @@ namespace Entify.Apps
             try
             {
                 webView = new CefSharp.WinForms.WebView("about:blank", Program.settings);
-                CefSharp.CEF.RegisterScheme("entify", new EntifySchemeHandlerFactory(this));
+                CefSharp.CEF.RegisterScheme("entify", new EntifySchemeHandlerFactory(this, entifyScheme));
                 
                 webView.PropertyChanged += webView_PropertyChanged;
 #if(false)
@@ -145,6 +148,10 @@ namespace Entify.Apps
         public override void Navigate(string uri) 
         {
             base.Navigate(uri);
+            if (webView.Address.EndsWith(".xml")) // If we are in Spider mode
+            {
+                subscribe(uri);
+            }
             var app = uri.Split(':')[1];
             var service = uri.Split(':')[0];
             if (!this.uri.StartsWith(app + ":" + service))
@@ -164,9 +171,13 @@ namespace Entify.Apps
 
         }
 
+        
         void service_ObjectLoaded(object sender, Models.IEntifyService.ObjectLoadedEventArgs e)
         {
             String temp_path = Environment.GetEnvironmentVariable("temp") + Path.DirectorySeparatorChar + "entify_razor.tmp";
+
+            this.Token = JsonConvert.DeserializeObject<Object>((string)e.Result);
+            webView.LoadHtml(Process(entifyScheme.LoadResource(webView.Address)));
 #if(false)
             using(StreamWriter sr = new StreamWriter(temp_path)) {
                 sr.Write(template);
@@ -211,8 +222,10 @@ namespace Entify.Apps
         {
             public delegate void Navigate(string uri);
             public Form1 Host;
-            public MyRequestHandler(Form1 host)
+            public entity App;
+            public MyRequestHandler(Form1 host, entity app)
             {
+                this.App = app;
                 this.Host = host;
             }
             public void Navigating(string uri)
@@ -244,7 +257,22 @@ namespace Entify.Apps
 
             public void OnResourceResponse(IWebBrowser browser, string url, int status, string statusText, string mimeType, System.Net.WebHeaderCollection headers)
             {
-                
+                if (url.EndsWith(".xml")) // If we are in Spider mode
+                {
+                   App.subscribe(url);
+                }
+            }
+        }
+        public class SpiderCore
+        {
+            public entity Host { get; set; }
+            public SpiderCore(entity host)
+            {
+                this.Host = host;
+            }
+            public object execute(string func, params object[] arguments)
+            {
+               return Host.Runtime.InvokeFunction(func, arguments);
             }
         }
         string template = "";
@@ -266,19 +294,27 @@ namespace Entify.Apps
                     inspector.Text = "Show Inspector";
                     inspector.Click += inspector_Click;
                     webView.ContextMenu = cm;
-                    webView.RequestHandler = new MyRequestHandler(this.Host);
+                    webView.RequestHandler = new MyRequestHandler(this.Host, this);
                     #if(false)
                         webView.LoadHtml(view);
 #else
                      var fragments = uri.Split(':');
                       var app = fragments[1];
                     var view = "index.html";
-                    if (this.uri.Contains("$"))
+                    if (this.uri.Contains("$")) 
                     {
                         view = this.uri.Substring(this.uri.IndexOf("$") + 1);
+                        if (view.EndsWith(".xml")) // If we are in Spider mode
+                        {
+                            webView.RegisterJsObject("SpiderCore", new SpiderCore(this));
+                        }
+
                     }
                     webView.Load("entify://" + app + "/" + view);
-                  
+                    if (webView.Address.EndsWith(".xml")) // If we are in Spider mode
+                    {
+                        subscribe(uri);
+                    }
                     try
                     {
                         webView.RegisterJsObject("EntifyCore", new JSEntify(this));
@@ -321,6 +357,23 @@ namespace Entify.Apps
         {
             get;
             set;
+        }
+
+
+        public string Process(string shtml)
+        {
+           
+            shtml = Preprocessor.Preprocess(shtml, Token);
+
+            var styles = "<link class=\"hidden\" href=\"entify://spider/css/spider.css\" rel=\"stylesheet\" type=\"text/css\" />";
+            styles += "<link class=\"hidden\" href=\"entify://resources/css/" + Properties.Settings.Default.Theme + ".css\" rel=\"stylesheet\" type=\"text/css\" />";
+            var polyfills = "<script src=\"entify://resources/scripts/models.js\" type=\"text/javascript\"></script>";
+            polyfills += "<script src=\"entify://resources/scripts/views.js\" type=\"text/javascript\"></script>";
+            polyfills += "<script src=\"entify://spider/scripts/spider-polyfill.js\" type=\"text/javascript\"></script>";
+            shtml = "<html><head>" + styles + "</head><body>" + shtml;
+
+            shtml = shtml + polyfills + "</body></html>";
+            return shtml;
         }
     }
 }

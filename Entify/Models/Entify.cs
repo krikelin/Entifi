@@ -20,6 +20,11 @@ namespace Entify.Models
 {
     public class EntifySchemeHandlerFactory : CefSharp.ISchemeHandlerFactory
     {
+        public EntifySchemeHandlerFactory(ISpiderView spiderView, EntifyScheme entifyScheme)
+        {
+            this.SpiderView = spiderView;
+            this.EntifyScheme = entifyScheme;
+        }
         public EntifySchemeHandlerFactory(ISpiderView spiderView)
         {
             this.SpiderView = spiderView;
@@ -27,8 +32,10 @@ namespace Entify.Models
         public ISpiderView SpiderView;
         public CefSharp.ISchemeHandler Create()
         {
-            return new EntifyScheme(SpiderView);
+            return EntifyScheme != null ? EntifyScheme : new EntifyScheme(SpiderView);
         }
+
+        public EntifyScheme EntifyScheme { get; set; }
     }
     public class EntifyScheme : CefSharp.ISchemeHandler
     {
@@ -86,6 +93,49 @@ namespace Entify.Models
             }
             return false;
         }
+        public string LoadResource(string url)
+        {
+
+            if (url.StartsWith("entify://"))
+            {
+                url = url.Substring("entify://".Length);
+                string[] fragments = url.Split('/');
+                String bundle = fragments[0];
+                String path = ENTIFY_APPS_DIR + Path.DirectorySeparatorChar + bundle + Path.DirectorySeparatorChar + String.Join(Path.DirectorySeparatorChar.ToString(), fragments, 1, fragments.Length - 1);
+                if (!File.Exists(path))
+                {
+                    path = ENTIFY_LOCAL_APPS_DIR + Path.DirectorySeparatorChar + bundle + Path.DirectorySeparatorChar + String.Join(Path.DirectorySeparatorChar.ToString(), fragments, 1, fragments.Length - 1);
+                }
+                if (File.Exists(path))
+                {
+                    FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                    StreamReader sr = new StreamReader(fs);
+                    
+
+
+
+                    if (path.EndsWith(".css"))
+                    {
+                       
+                        var css = sr.ReadToEnd();
+                        css = css.Replace("{{primary_color}}", ColorTranslator.ToHtml(Program.form1.BackColor));
+                        css = css.Replace("{{primary_color|rgb}}", String.Format("%s,%s,%s", Program.form1.BackColor.R, Program.form1.BackColor.G, Program.form1.BackColor.B));
+                        css = css.Replace("{{hue}}", Math.Round(Program.form1.BackColor.GetHue()).ToString());
+                        css = css.Replace("{{sat}}", Math.Round(Program.form1.BackColor.GetSaturation() * 100).ToString());
+                        css = css.Replace("{{bright}}", Math.Round(Program.form1.BackColor.GetBrightness() * 100).ToString());
+                        css = css.Replace("{{theme}}", Properties.Settings.Default.Theme);
+
+
+                      return css;
+
+
+                    }
+
+                    return sr.ReadToEnd();
+                }
+            }
+            return null;
+        }
         private string GetMimeType(string fileName)
         {
             string mimeType = "application/unknown";
@@ -115,7 +165,7 @@ namespace Entify.Models
             }
             return "";
         }
-       
+        
         public bool ProcessRequest(CefSharp.IRequest request, ref string mimeType, ref System.IO.Stream stream)
         {
 
@@ -184,17 +234,7 @@ namespace Entify.Models
                        
 
                         // Extract
-                        string shtml = sr.ReadToEnd();
-                       shtml = preprocessor.Preprocess(shtml, SpiderView.Token);
-
-                        var styles = "<link class=\"hidden\" href=\"entify://spider/css/spider.css\" rel=\"stylesheet\" type=\"text/css\" />";
-                        styles += "<link class=\"hidden\" href=\"entify://resources/css/" + Properties.Settings.Default.Theme + ".css\" rel=\"stylesheet\" type=\"text/css\" />";
-                        var polyfills = "<script src=\"entify://resources/scripts/models.js\" type=\"text/javascript\"></script>";
-                        polyfills += "<script src=\"entify://resources/scripts/views.js\" type=\"text/javascript\"></script>";
-                        polyfills += "<script src=\"entify://spider/scripts/spider-polyfill.js\" type=\"text/javascript\"></script>";
-                        shtml = "<html><head>" + styles + "</head><body>" + shtml;
-                       
-                        shtml = shtml + polyfills + "</body></html>";
+                        var shtml = SpiderView.Process(LoadResource(request.Url));
                         mimeType = "text/html";
                         MemoryStream ms2 = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(shtml), false);
                         stream = ms2;

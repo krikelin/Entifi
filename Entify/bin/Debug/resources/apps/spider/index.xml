@@ -1,19 +1,30 @@
+<?
+function enum(o)
+	local e = o:GetEnumerator()
+	return function()
+		if e:MoveNext() then
+			return e.Current
+		end
+	end
+end
+?>
 <view xmlns="http://www.segurify.com/TR/2011">
 	<title>a</title>
+	% if data then
 	<section id="overview" title="Overview">
 		<hbox>
 			<img uri="http://a/" width="128" height="128" src="http://www.dn.se/ImageHandler.axd/?id=1022542&amp;imageFormat=original" shadow="true" />
 			<vbox flex="1" style="-webkit-box-flex: 1">
-				<link href="a" uri="${a}">${title}</link>
+				<link uri="spotify:spider:t">${data.title:ToString()}</link>
 				<toolbar>
 					<button onClick="test" class="follow">Follow</button>
 				</toolbar>
-				<text>Aleccande came from 
-					<alink uri="spotify:user:drsounds">Leros</alink>e</text>
+				<text>Aleccander learned to swim at <alink uri="spotify:place:leros">Leros</alink>e</text>
 			</vbox>
 			<vbox>
 			
 			</vbox>
 		</hbox>
 	</section>
+	% end
 </view>

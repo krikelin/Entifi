@@ -282,6 +282,8 @@ namespace Entify.Models
             result.Add("height", 160);
             result.Add("laps", new Random().Next(1, 16));
             result.Add("depth", 160);
+            result.Add("id", uri.Split(':')[2]);
+            result.Add("uri", uri);
             result.Add("following", false);
             result.Add("image", "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRLwbS1ceNk8GCHaGrDfPwKZWb4CMutkQS7r2rsoDAHC8aqdQiJ");
             

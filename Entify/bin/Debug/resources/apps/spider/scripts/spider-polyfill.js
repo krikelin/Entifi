@@ -12,7 +12,7 @@ for(var i =0 ; i < links.length; i++) {
 
 	if(link.tagName.toLowerCase() === 'alink') {
 		
-		a.innerHTML = link.innerHTML;
+		a.innerHTML = "&nbsp;" + link.innerHTML + "&nbsp;";
 	} else {
 		a.appendChild(clone);
 	}
@@ -33,11 +33,10 @@ for(var i =0 ; i < links.length; i++) {
 function parseFunction(str) {
 	var args = [];
 	var name = str;
-	if(str.indexOf('(')) {
-		args = str.substr(str.indexOf('(') + 1, str.indexOf('('));
-		name = str.substr(0, str.indexOf('('));
-	}
+	
+	console.log(args);
 	args = eval('[' + args + ']');
+	console.log(args);
 	return {name: name, args: args};
 }
 var btns = document.querySelectorAll('[onClick]');

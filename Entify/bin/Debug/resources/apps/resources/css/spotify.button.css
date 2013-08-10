@@ -1,0 +1,22 @@
+button, .btn, .grid thead th {
+	border: none;
+
+	background: -webkit-linear-gradient(-90deg, #a6a6a6, #868668);
+	color: #111111;
+	text-shadow: 0px 1px 1px #b0b7b7;
+	font-family: "Tahoma";
+	font-size: 11px;
+	border-bottom: 1px solid #292929;
+	border-top: 1px solid #c9c9c9;
+}
+button, .btn {
+	border-radius: 3px;
+
+}
+button:active {
+	background: -webkit-linear-gradient(-90deg, #868686, #666666);
+	
+}
+.grid {
+	border-collapse: collapse;
+}

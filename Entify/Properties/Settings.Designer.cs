@@ -25,7 +25,7 @@ namespace Entify.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("adam")]
+        [global::System.Configuration.DefaultSettingValueAttribute("spotify.adam")]
         public string Theme {
             get {
                 return ((string)(this["Theme"]));

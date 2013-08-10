@@ -63,6 +63,10 @@ namespace Entify.Apps
         }
         public void subscribe(string uri)
         {
+            if (uri.Contains("$"))
+            {
+                uri = uri.Split('$')[0];
+            }
             Models.IEntifyService service = new Models.W3Service();
             service.ObjectLoaded += service_ObjectLoaded;
             service.RequestObjectAsync(uri);
@@ -144,6 +148,7 @@ namespace Entify.Apps
                
             }
         }
+        public string viewAddress = "";
         public Object Token { get; set; }
         public override void Navigate(string uri) 
         {
@@ -158,6 +163,18 @@ namespace Entify.Apps
             {
                 if(webView.IsBrowserInitialized)
                 webView.Load("entify://" + app + "/index.html");
+                viewAddress = "entify://" + app + "/index.html";
+            }
+            if (this.uri.Contains("$")) 
+            {
+                view = this.uri.Substring(this.uri.IndexOf("$") + 1);
+                if (view.EndsWith(".xml")) // If we are in Spider mode
+                {
+                    webView.RegisterJsObject("SpiderCore", new SpiderCore(this));
+                }
+                if(webView.IsBrowserInitialized)
+                webView.Load("entify://" + app + "/index.xml");
+                viewAddress = "entify://" + app + "/index.xml";
             }
             this.uri = uri;
             
@@ -177,7 +194,7 @@ namespace Entify.Apps
             String temp_path = Environment.GetEnvironmentVariable("temp") + Path.DirectorySeparatorChar + "entify_razor.tmp";
 
             this.Token = JsonConvert.DeserializeObject<Object>((string)e.Result);
-            webView.LoadHtml(Process(entifyScheme.LoadResource(webView.Address)));
+            webView.LoadHtml(Process(entifyScheme.LoadResource(viewAddress)));
 #if(false)
             using(StreamWriter sr = new StreamWriter(temp_path)) {
                 sr.Write(template);
@@ -259,7 +276,7 @@ namespace Entify.Apps
             {
                 if (url.EndsWith(".xml")) // If we are in Spider mode
                 {
-                   App.subscribe(url);
+                   App.subscribe(this.App.Uri);
                 }
             }
         }
@@ -302,7 +319,7 @@ namespace Entify.Apps
                       var app = fragments[1];
                     var view = "index.html";
                     if (this.uri.Contains("$")) 
-                    {
+                        {
                         view = this.uri.Substring(this.uri.IndexOf("$") + 1);
                         if (view.EndsWith(".xml")) // If we are in Spider mode
                         {
@@ -311,6 +328,7 @@ namespace Entify.Apps
 
                     }
                     webView.Load("entify://" + app + "/" + view);
+                    viewAddress = "entify://" + app + "/" + view;
                     if (webView.Address.EndsWith(".xml")) // If we are in Spider mode
                     {
                         subscribe(uri);
@@ -328,7 +346,13 @@ namespace Entify.Apps
             }
             
         }
-        
+        public string Uri
+        {
+            get
+            {
+                return this.uri;
+            }
+        }
 
         private void InitializeComponent()
         {
@@ -367,7 +391,7 @@ namespace Entify.Apps
 
             var styles = "<link class=\"hidden\" href=\"entify://spider/css/spider.css\" rel=\"stylesheet\" type=\"text/css\" />";
             styles += "<link class=\"hidden\" href=\"entify://resources/css/" + Properties.Settings.Default.Theme + ".css\" rel=\"stylesheet\" type=\"text/css\" />";
-            styles += "<link class=\"hidden\" href=\"entify://resources/css/button.css\" rel=\"stylesheet\" type=\"text/css\" />";
+            
             var polyfills = "<script src=\"entify://resources/scripts/models.js\" type=\"text/javascript\"></script>";
             polyfills += "<script src=\"entify://resources/scripts/views.js\" type=\"text/javascript\"></script>";
             polyfills += "<script src=\"entify://spider/scripts/spider-polyfill.js\" type=\"text/javascript\"></script>";

@@ -12,7 +12,7 @@ for(var i =0 ; i < links.length; i++) {
 
 	if(link.tagName.toLowerCase() === 'alink') {
 		
-		a.innerHTML = link.innerHTML;
+		a.innerHTML = "&nbsp;" + link.innerHTML + "&nbsp;";
 	} else {
 		a.appendChild(clone);
 	}

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Theme" Type="System.String" Scope="User">
-      <Value Profile="(Default)">adam</Value>
+      <Value Profile="(Default)">spotify.adam</Value>
     </Setting>
   </Settings>
 </SettingsFile>

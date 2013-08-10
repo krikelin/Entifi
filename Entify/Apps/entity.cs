@@ -367,6 +367,7 @@ namespace Entify.Apps
 
             var styles = "<link class=\"hidden\" href=\"entify://spider/css/spider.css\" rel=\"stylesheet\" type=\"text/css\" />";
             styles += "<link class=\"hidden\" href=\"entify://resources/css/" + Properties.Settings.Default.Theme + ".css\" rel=\"stylesheet\" type=\"text/css\" />";
+            styles += "<link class=\"hidden\" href=\"entify://resources/css/button.css\" rel=\"stylesheet\" type=\"text/css\" />";
             var polyfills = "<script src=\"entify://resources/scripts/models.js\" type=\"text/javascript\"></script>";
             polyfills += "<script src=\"entify://resources/scripts/views.js\" type=\"text/javascript\"></script>";
             polyfills += "<script src=\"entify://spider/scripts/spider-polyfill.js\" type=\"text/javascript\"></script>";

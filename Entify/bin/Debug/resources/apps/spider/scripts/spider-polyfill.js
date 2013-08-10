@@ -30,11 +30,22 @@ for(var i =0 ; i < links.length; i++) {
 	linkParentNode.insertBefore(a, linkParentNode.childNodes[index]);
 
 }
-
+function parseFunction(str) {
+	var args = [];
+	var name = str;
+	if(str.indexOf('(')) {
+		args = str.substr(str.indexOf('(') + 1, str.indexOf('('));
+		name = str.substr(0, str.indexOf('('));
+	}
+	args = eval('[' + args + ']');
+	return {name: name, args: args};
+}
 var btns = document.querySelectorAll('[onClick]');
 for(var i = 0; i < btns.length; i++) {
 	var btn = btns[i];
-	btn.setAttribute('onclick', "Spidercore.execute('" + btn.getAttribute('onClick') + "')");
+	var func = parseFunction(btn.getAttribute('onClick'));
+
+	btn.setAttribute('onclick', "SpiderCore.execute('" +  func.name+ "', " + func.args + ")");
 
 }
 

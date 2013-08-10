@@ -1,6 +1,6 @@
 @primary-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
 @tabbar-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
-.btn {
+.btn, button {
 	display: block;
 	background: lightness(@primary-color, -20%);
 	width: auto;

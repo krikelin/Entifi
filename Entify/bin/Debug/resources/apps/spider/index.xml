@@ -7,6 +7,9 @@ function enum(o)
 		end
 	end
 end
+function follow () 
+	
+end
 ?>
 <view xmlns="http://www.segurify.com/TR/2011">
 	<title>a</title>
@@ -17,7 +20,7 @@ end
 			<vbox flex="1" style="-webkit-box-flex: 1">
 				<link uri="spotify:spider:t">${data.title:ToString()}</link>
 				<toolbar>
-					<button onClick="test" class="follow">Follow</button>
+					<button onClick="follow()" class="<? if not data.following then %>btn-follow<? end ?>">Follow</button>
 				</toolbar>
 				<text>Aleccander learned to swim at <alink uri="spotify:place:leros">Leros</alink>e</text>
 			</vbox>

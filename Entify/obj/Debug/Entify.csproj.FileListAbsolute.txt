@@ -20,3 +20,7 @@ C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\do
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\obj\Debug\Entify.Navigator.resources
+C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\obj\Debug\Entify.ListView.resources
+C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\lua51.dll
+C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\LuaInterface.dll
+C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\VikingErik.LuaInterface.dll

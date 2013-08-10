@@ -1,5 +1,7 @@
 ﻿using CefSharp;
 using Entify.Models;
+using Entify.Spider;
+using Entify.Spider.Scripting;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,11 +11,13 @@ using System.Threading;
 using System.Windows.Forms;
 namespace Entify.Apps
 {
-    class entity : app
+
+    class entity : app, ISpiderView
     {
+
         public String LoadLocalResource(string uri)
         {
-            EntifyScheme es = new EntifyScheme();
+            EntifyScheme es = new EntifyScheme(this);
             System.IO.Stream stream = new System.IO.MemoryStream();
             String mimeType = "";
             es.LoadResource(uri, ref mimeType, ref stream);
@@ -28,6 +32,8 @@ namespace Entify.Apps
             : base(uri, host)
         {
             this.Host = host;
+            this.Preprocessor = new Spider.Preprocessor.LuaMako(this);
+            this.Runtime = new Spider.Scripting.LuaInterpreter(this);
 
             var fragments = uri.Split(':');
             var app = fragments[1];
@@ -36,7 +42,8 @@ namespace Entify.Apps
             try
             {
                 webView = new CefSharp.WinForms.WebView("about:blank", Program.settings);
-                CefSharp.CEF.RegisterScheme("entify", new EntifySchemeHandlerFactory());
+                CefSharp.CEF.RegisterScheme("entify", new EntifySchemeHandlerFactory(this));
+                
                 webView.PropertyChanged += webView_PropertyChanged;
 #if(false)
                 template = LoadLocalResource("entify://" + app + "/index.html");
@@ -134,6 +141,7 @@ namespace Entify.Apps
                
             }
         }
+        public Object Token { get; set; }
         public override void Navigate(string uri) 
         {
             base.Navigate(uri);
@@ -293,10 +301,21 @@ namespace Entify.Apps
             this.ResumeLayout(false);
 
         }
-
         private void entity_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public Spider.Scripting.IScriptEngine Runtime
+        {
+            get;
+            set;
+        }
+
+        public Spider.Preprocessor.IPreprocessor Preprocessor
+        {
+            get;
+            set;
         }
     }
 }

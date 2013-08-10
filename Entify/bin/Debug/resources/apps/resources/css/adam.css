@@ -3,7 +3,7 @@
 @tabbar-color: hsla({{hue}},{{sat}}%,  {{bright}}%, 1.0);
 body, .e-tab-active {
 
-	background: lighten(saturation(@primary-color, -20%), -35%)
+	background: lighten(saturation(@primary-color, -10%), -35%)
 }
 .toolbar {
 	width: 100%;
@@ -125,7 +125,7 @@ nav {
 	top: 0px;
 	
 	background-color: lightness(@tabbar-color, -15%);
-	background-color: lightness(saturation(@tabbar-color, -25%), -21%);
+	background-color: lightness(saturation(@tabbar-color, -15%), -11%);
 	color: white;
 
 	height: 23px;

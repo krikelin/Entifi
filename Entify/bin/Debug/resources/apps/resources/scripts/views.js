@@ -45,10 +45,7 @@
 		this.enode = node;
 		console.log(args);
 		this.node.classList.add('btn-follow');
-		if(this.enode.data.following) {
-			this.node.classList.add('btn-subscribed');
-			this.applyOptions({'title': 'Following'})
-		}
+		
 		this.addEventListener('click', function () {
 			c.application.entify.send('PUT', self.enode.uri, {following: !self.enode.data.following}).done(function (d) {
 				self.node.classList.add('btn-subscribed');
@@ -57,6 +54,10 @@
 			});
 		})
 		this.applyOptions(args);
+		if(this.enode.data.following) {
+			this.node.classList.add('btn-subscribed');
+			this.applyOptions({text: 'Following'})
+		}
 	};
 	c.FollowButton.prototype = new c.BaseButton();
 	c.FollowButton.prototype.constructor = c.BaseButton;

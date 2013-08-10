@@ -81,16 +81,47 @@ namespace Entify
             InitializeComponent();
             RegistredAppTypes.Add("entity", typeof(Apps.entity));
             Program.form1 = this;
-            this.Navigate("spotify:swim:2dlL3nKQLsTfK5k8fKSX2I");
+            this.Navigate("spotify:spider:2dlL3nKQLsTfK5k8fKSX2I");
           
         }
+        /// <summary>
+        /// Creates color with corrected brightness.
+        /// </summary>
+        /// <param name="color">Color to correct.</param>
+        /// <param name="correctionFactor">The brightness correction factor. Must be between -1 and 1. 
+        /// Negative values produce darker colors.</param>
+        /// <returns>
+        /// Corrected <see cref="Color"/> structure.
+        /// </returns>
+        public static Color ChangeColorBrightness(Color color, float correctionFactor)
+        {
+            float red = (float)color.R;
+            float green = (float)color.G;
+            float blue = (float)color.B;
 
+            if (correctionFactor < 0)
+            {
+                correctionFactor = 1 + correctionFactor;
+                red *= correctionFactor;
+                green *= correctionFactor;
+                blue *= correctionFactor;
+            }
+            else
+            {
+                red = (255 - red) * correctionFactor + red;
+                green = (255 - green) * correctionFactor + green;
+                blue = (255 - blue) * correctionFactor + blue;
+            }
+
+            return Color.FromArgb(color.A, (int)red, (int)green, (int)blue);
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             this.searchBox1.SearchClicked += searchBox1_SearchClicked;
             this.AcceptButton = button1;
             AeroGlass.Glass ew = new Glass();
-            ew.extendFrame( glassPane1.Height, 60, 0, 0, this);    
+            
+            
         }
 
         void searchBox1_SearchClicked(object sender, EventArgs e)
@@ -106,6 +137,11 @@ namespace Entify
         private void button1_Click(object sender, EventArgs e)
         {
             this.Navigate(this.searchBox1.Text);
+        }
+
+        private void panel1_Paint_1(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

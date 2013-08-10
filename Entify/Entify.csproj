@@ -53,6 +53,12 @@
     <Reference Include="FSharp.PowerPack">
       <HintPath>..\..\..\..\..\Downloads\NDjango_0.9.6.0\NDjango_0.9.6.0\FSharp.PowerPack.dll</HintPath>
     </Reference>
+    <Reference Include="lua51">
+      <HintPath>..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\lua51.dll</HintPath>
+    </Reference>
+    <Reference Include="LuaInterface">
+      <HintPath>..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\LuaInterface.dll</HintPath>
+    </Reference>
     <Reference Include="NDjango.BistroIntegration">
       <HintPath>..\..\..\..\..\Downloads\NDjango_0.9.6.0\NDjango_0.9.6.0\NDjango.BistroIntegration.dll</HintPath>
     </Reference>
@@ -76,6 +82,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="VikingErik.LuaInterface">
+      <HintPath>..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\VikingErik.LuaInterface.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Apps\app.cs">
@@ -93,6 +102,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListView.Designer.cs">
+      <DependentUpon>ListView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entify.cs" />
     <Compile Include="Navigator.cs">
       <SubType>UserControl</SubType>
@@ -108,6 +123,11 @@
     <Compile Include="SearchBox.Designer.cs">
       <DependentUpon>SearchBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Spider\ISpiderView.cs" />
+    <Compile Include="Spider\Preprocessor\Mako.cs" />
+    <Compile Include="Spider\Preprocessor\Preprocessor.cs" />
+    <Compile Include="Spider\Scripting\Interpreter.cs" />
+    <Compile Include="Spider\Scripting\LuaInterpreter.cs" />
     <EmbeddedResource Include="Apps\app.resx">
       <DependentUpon>app.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListView.resx">
+      <DependentUpon>ListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Navigator.resx">
       <DependentUpon>Navigator.cs</DependentUpon>

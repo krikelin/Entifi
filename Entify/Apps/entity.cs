@@ -32,8 +32,8 @@ namespace Entify.Apps
             : base(uri, host)
         {
             this.Host = host;
-            this.Preprocessor = new Spider.Preprocessor.LuaMako(this);
             this.Runtime = new Spider.Scripting.LuaInterpreter(this);
+            this.Preprocessor = new Spider.Preprocessor.LuaMako(this);
 
             var fragments = uri.Split(':');
             var app = fragments[1];
@@ -272,7 +272,12 @@ namespace Entify.Apps
 #else
                      var fragments = uri.Split(':');
                       var app = fragments[1];
-                    webView.Load("entify://" + app + "/index.html");
+                    var view = "index.html";
+                    if (this.uri.Contains("$"))
+                    {
+                        view = this.uri.Substring(this.uri.IndexOf("$") + 1);
+                    }
+                    webView.Load("entify://" + app + "/" + view);
                   
                     try
                     {

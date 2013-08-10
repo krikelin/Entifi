@@ -56,25 +56,9 @@ namespace Entify.Models
                     stream = fs;
                     mimeType = GetMimeType(path);
 
-                    if (url.EndsWith(".xml")) // Assume spider view
-                    {
-                        IScriptEngine scripting = SpiderView.Runtime;
-                        IPreprocessor preprocessor = SpiderView.Preprocessor;
+                   
 
-                        // Read raw data
-                        byte[] bytes = new byte[fs.Length];
-                        fs.Read(bytes, 0, bytes.Length);
-                        MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length);
-                        fs.Close();
-                        stream = ms;
-                        StreamReader sr = new StreamReader(ms);
-
-                        // Extract
-                        string d = sr.ReadToEnd();
-                        preprocessor.Preprocess(d, SpiderView.Token);
-                    }
-
-                    if (mimeType == "text/html")
+                    if (mimeType == "text/html" || mimeType == "text/xml")
                     {
                         byte[] bytes = new byte[fs.Length];
                         fs.Read(bytes, 0, bytes.Length);
@@ -93,6 +77,8 @@ namespace Entify.Models
 
                         MemoryStream ms2 = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(css), false);
                         stream = ms2;
+
+                       
                     }
                     
                     return true;
@@ -167,6 +153,10 @@ namespace Entify.Models
                         MemoryStream ms2 = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(css), false);
                         stream = ms2;
                     }
+                    if (mimeType == "application/javascript")
+                    {
+                        return true;
+                    }
                     if (mimeType == "text/html")
                     {
                         StreamReader sr = new StreamReader(ms);
@@ -181,6 +171,32 @@ namespace Entify.Models
                         // css = TransformToCss(css, "a.tmp");
 
                         MemoryStream ms2 = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(css), false);
+                        stream = ms2;
+                    }
+                    if (request.Url.EndsWith(".xml")) // Assume spider view
+                    {
+                        StreamReader sr = new StreamReader(ms);
+                     
+                        IScriptEngine scripting = SpiderView.Runtime;
+                        IPreprocessor preprocessor = SpiderView.Preprocessor;
+
+                        // Read raw data
+                       
+
+                        // Extract
+                        string shtml = sr.ReadToEnd();
+                       shtml = preprocessor.Preprocess(shtml, SpiderView.Token);
+
+                        var styles = "<link class=\"hidden\" href=\"entify://spider/css/spider.css\" rel=\"stylesheet\" type=\"text/css\" />";
+                        styles += "<link class=\"hidden\" href=\"entify://resources/css/" + Properties.Settings.Default.Theme + ".css\" rel=\"stylesheet\" type=\"text/css\" />";
+                        var polyfills = "<script src=\"entify://resources/scripts/models.js\" type=\"text/javascript\"></script>";
+                        polyfills += "<script src=\"entify://resources/scripts/views.js\" type=\"text/javascript\"></script>";
+                        polyfills += "<script src=\"entify://spider/scripts/spider-polyfill.js\" type=\"text/javascript\"></script>";
+                        shtml = "<html><head>" + styles + "</head><body>" + shtml;
+                       
+                        shtml = shtml + polyfills + "</body></html>";
+                        mimeType = "text/html";
+                        MemoryStream ms2 = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(shtml), false);
                         stream = ms2;
                     }
                     return true;

@@ -552,6 +552,7 @@ namespace Entify.Spider.Preprocessor
                      * Check if the result of the preprocessing is the same as before. If nothing
                      * has changed return NONCHANGE. This is only for rendering whole pages, not inflate.
                      * */
+#if(false)
                     if (!inflate)
                     {
                         if (Output == OldOutput)
@@ -559,6 +560,7 @@ namespace Entify.Spider.Preprocessor
 
                         OldOutput = Output;
                     }
+#endif
                 }
                 catch (Exception e)
                 {

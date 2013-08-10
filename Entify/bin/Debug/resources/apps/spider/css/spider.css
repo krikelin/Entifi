@@ -5,6 +5,9 @@ vbox, hbox, box, toolbar, text, img {
 	-webkit-box-flex: attr(flex integer, 1);
 	margin: 3px;
 }
+a img {
+	cursor: pointer;
+}
 vbox {
 	-webkit-box-orient: vertical;
 

@@ -24,3 +24,7 @@ C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\obj\Debug\En
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\lua51.dll
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\LuaInterface.dll
 C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\VikingErik.LuaInterface.dll
+C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\MongoDB.Bson.dll
+C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\MongoDB.Driver.dll
+C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\MongoDB.Bson.xml
+C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\bin\Debug\MongoDB.Driver.xml

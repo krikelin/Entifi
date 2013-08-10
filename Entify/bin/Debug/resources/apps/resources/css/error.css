@@ -1,0 +1,16 @@
+body, p {
+	font-size: 11px;
+	font-family: "Tahoma";
+}
+h1 {
+	color: red;
+	font-size: 25px;
+}
+h2 {
+	color: #ff8800;
+	font-style: italic;
+}
+.stacktrace {
+	background: #FFFF88;
+	padding: 2px;
+}

@@ -22,19 +22,39 @@ namespace Entify
 
         private void Navigator_Load(object sender, EventArgs e)
         {
-            pictureBox1.EnabledChanged += pictureBox1_EnabledChanged;
-            pictureBox2.EnabledChanged += pictureBox2_EnabledChanged;
+        }
+        public bool CanGoBack
+        {
+            get
+            {
+                return pictureBox1.Enabled;
+            }
+            set
+            {
+                pictureBox1.Enabled = value;
+            }
+        }
+        public bool CanGoForward
+        {
+            get
+            {
+                return pictureBox2.Enabled;
+            }
+            set
+            {
+                pictureBox2.Enabled = value;
+            }
         }
 
         void pictureBox2_EnabledChanged(object sender, EventArgs e)
         {
-            this.BackgroundImage = Enabled ? Properties.Resources.ic_back_vista_enabled : Properties.Resources.ic_back_vista_disabled;
+            pictureBox2.BackgroundImage = pictureBox2.Enabled ? Properties.Resources.ic_forward_vista_enabled : Properties.Resources.ic_forward_vista_disabled;
 
         }
 
         void pictureBox1_EnabledChanged(object sender, EventArgs e)
         {
-            this.BackgroundImage = Enabled ? Properties.Resources.ic_back_vista_enabled : Properties.Resources.ic_back_vista_disabled;
+            pictureBox1.BackgroundImage = pictureBox1.Enabled ? Properties.Resources.ic_back_vista_enabled : Properties.Resources.ic_back_vista_disabled;
 
         }
 

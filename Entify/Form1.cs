@@ -12,6 +12,9 @@ namespace Entify
 {
     public partial class Form1 : Form
     {
+        public Stack<string> History = new Stack<string>();
+        public Stack<string> Future = new Stack<string>();
+
         internal static class NativeMethods
         {
             [DllImport("dwmapi.dll", EntryPoint="#127")]
@@ -30,7 +33,8 @@ namespace Entify
         }
         public Dictionary<String, Type> RegistredAppTypes = new Dictionary<string, Type>();
         public Dictionary<String, Apps.app> Applications = new Dictionary<string, Apps.app>();
-        public void Navigate(string uri)
+        public string Uri;
+        public void Navigate(string uri, bool history)
         {
             if (uri.StartsWith("entify:"))
             {
@@ -49,7 +53,9 @@ namespace Entify
                 application.BringToFront();
                 application.Navigate(uri);
                 application.Dock = DockStyle.Fill;
-                return;
+                this.Uri = uri;
+
+
             }
             else
             {
@@ -64,8 +70,18 @@ namespace Entify
                 application.BringToFront();
                 application.Dock = DockStyle.Fill;
                 application.Navigate(uri);
+                this.Uri = uri;
                 Applications.Add(identifier, application);
             }
+            if (history)
+            {
+                if (this.Uri != null)
+                    History.Push(this.Uri);
+                Future.Clear();
+                
+            }
+            this.navigator1.CanGoBack = History.Count > 0;
+            this.navigator1.CanGoForward = Future.Count > 0;
 
         }
         public DWMCOLORIZATIONPARAMS color = new DWMCOLORIZATIONPARAMS();
@@ -81,7 +97,7 @@ namespace Entify
             InitializeComponent();
             RegistredAppTypes.Add("entity", typeof(Apps.entity));
             Program.form1 = this;
-            this.Navigate("spotify:user:drsounds");
+            this.Navigate("entifi:user:drsounds", true);
           
         }
         /// <summary>
@@ -126,7 +142,7 @@ namespace Entify
 
         void searchBox1_SearchClicked(object sender, EventArgs e)
         {
-            this.Navigate(this.searchBox1.Text);
+            this.Navigate(this.searchBox1.Text, true);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -136,12 +152,38 @@ namespace Entify
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Navigate(this.searchBox1.Text);
+            this.Navigate(this.searchBox1.Text, true);
         }
 
         private void panel1_Paint_1(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void navigator1_NavigatedBack(object sender, EventArgs e)
+        {
+            GoBack();
+        }
+        public void GoBack()
+        {
+            var uri = this.History.Pop();
+            this.Future.Push(this.Uri);
+            this.Uri = uri;
+            Navigate(uri, false);
+        }
+        public void GoForward()
+        {
+            if (this.Future.Count < 1)
+                return;
+            var uri = this.Future.Pop();
+            this.History.Push(this.Uri);
+            this.Uri = uri;
+            Navigate(uri, false);
+        }
+
+        private void navigator1_NavigatedForward(object sender, EventArgs e)
+        {
+            GoForward();
         }
     }
 }

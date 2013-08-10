@@ -44,6 +44,8 @@ namespace Entify.Apps
             this.uri = uri;
             try
             {
+                Program.settings.UserStyleSheetEnabled = true;
+                Program.settings.UserStyleSheetLocation = "resources/resources/css/" + Properties.Settings.Default.Theme + ".css";
                 webView = new CefSharp.WinForms.WebView("about:blank", Program.settings);
                 CefSharp.CEF.RegisterScheme("entify", new EntifySchemeHandlerFactory(this, entifyScheme));
                 
@@ -67,7 +69,7 @@ namespace Entify.Apps
             {
                 uri = uri.Split('$')[0];
             }
-            Models.IEntifyService service = new Models.W3Service();
+            Models.IEntifyService service = new Models.MongoService();
             service.ObjectLoaded += service_ObjectLoaded;
             service.RequestObjectAsync(uri);
         }
@@ -78,7 +80,7 @@ namespace Entify.Apps
         }
         public class JSEntify
         {
-            Models.IEntifyService service = new Models.W3Service();
+            Models.IEntifyService service = new Models.MongoService();
             public delegate void EntifyLoaded(string uri);
             public void entifyLoaded(string uri)
             {
@@ -135,17 +137,25 @@ namespace Entify.Apps
             }
             public void service_ObjectLoaded(object sender, Models.IEntifyService.ObjectLoadedEventArgs e)
             {
-                if (this.cache.ContainsKey(e.Uri))
+                try
                 {
-                    this.cache[e.Uri] = e.Result.GetType() == typeof(string) ? e.Result : JsonConvert.SerializeObject(e.Result);
+                    if (this.cache.ContainsKey(e.Uri))
+                    {
+                        this.cache[e.Uri] = e.Result.GetType() == typeof(string) ? e.Result : JsonConvert.SerializeObject(e.Result);
+                    }
+                    else
+                    {
+                        this.cache.Add(e.Uri, e.Result.GetType() == typeof(string) ? e.Result : JsonConvert.SerializeObject(e.Result));
+                    }
+                    //   this.Host.webView.RegisterJsObject("__data", e.Result);
+                    this.Host.webView.ExecuteScript("application.notify('recievedata', {data: JSON.parse(EntifyCore.getData('" + e.Uri + "')), uri: '" + e.Uri + "'})");
                 }
-                else
+                catch (Exception ex)
                 {
-                    this.cache.Add(e.Uri,  e.Result.GetType() == typeof(string) ? e.Result : JsonConvert.SerializeObject(e.Result));
+                    var error = this.Host.entifyScheme.LoadResource("entify://resources/error.html");
+
+                    this.Host.webView.LoadHtml(error);
                 }
-            //   this.Host.webView.RegisterJsObject("__data", e.Result);
-                this.Host.webView.ExecuteScript("application.notify('recievedata', {data: JSON.parse(EntifyCore.getData('" + e.Uri + "')), uri: '" + e.Uri + "'})");
-               
             }
         }
         public string viewAddress = "";
@@ -247,7 +257,7 @@ namespace Entify.Apps
             }
             public void Navigating(string uri)
             {
-                this.Host.Navigate(uri);
+                this.Host.Navigate(uri, true);
             }
             public bool OnBeforeBrowse(IWebBrowser browser, IRequest request,  NavigationType naigationvType, bool isRedirect)
             {

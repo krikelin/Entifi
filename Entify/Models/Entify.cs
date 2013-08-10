@@ -6,6 +6,8 @@ using dotless.Core.Parser.Tree;
 using Entify.Spider;
 using Entify.Spider.Preprocessor;
 using Entify.Spider.Scripting;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
@@ -211,6 +213,7 @@ namespace Entify.Models
                     {
                         StreamReader sr = new StreamReader(ms);
                         var css = sr.ReadToEnd();
+                        css = css.Replace("{% header %}", LoadResource("entify://resources/header.html"));
                         css = css.Replace("{{primary_color}}", ColorTranslator.ToHtml(Program.form1.BackColor));
                         css = css.Replace("{{primary_color|rgb}}", String.Format("%s,%s,%s", Program.form1.BackColor.R, Program.form1.BackColor.G, Program.form1.BackColor.B));
                         css = css.Replace("{{hue}}", Math.Round(Program.form1.BackColor.GetHue()).ToString());
@@ -219,7 +222,7 @@ namespace Entify.Models
                         css = css.Replace("{{theme}}", Properties.Settings.Default.Theme);
                         //var f = DotlessConfiguration.GetDefault();
                         // css = TransformToCss(css, "a.tmp");
-
+                       
                         MemoryStream ms2 = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(css), false);
                         stream = ms2;
                     }
@@ -310,36 +313,88 @@ namespace Entify.Models
                 JObject json = JObject.Parse(payload);
                 if (cache.ContainsKey(uri))
                 {
-                    Hashtable obj = (Hashtable)cache[uri];
-                    
+                    object obj = (object)cache[uri];
+                    IDictionary data = null;
+                    if (obj.GetType() == typeof(string))
+                    {
+                        data = (IDictionary)JObject.Parse((string)obj);
+                    }
+                    else
+                    {
+                        data = (IDictionary)obj;
+                    }
                     foreach(KeyValuePair<string, JToken> o in json) 
                     {
-                        if (obj.ContainsKey(o.Key))
+                        if (data.Contains(o.Key))
                         {
-                            obj[o.Key] = o.Value.ToString();
+                            data[o.Key] = o.Value.ToString();
                         }
                         else
                         {
-                            obj.Add(o.Key, o.Value.ToString());
+                            data.Add(o.Key, o.Value.ToString());
                         }
                     }
-                   
+                    if (obj.GetType() == typeof(string))
+                    {
+                        cache[uri] = data;
+                    }
+                    return cache[uri];
                 }
             }
             if (method == "FOLLOW")
             {
                 if (cache.ContainsKey(uri))
                 {
-                    Hashtable obj = (Hashtable)cache[uri];
-                    if (obj.ContainsKey("following"))
+                    IDictionary data = null;
+                    var obj = cache[uri];
+                    if (obj.GetType() == typeof(string))
                     {
-                        obj["following"] = !((bool)obj["following"]);
+                        data = (IDictionary)JObject.Parse((string)obj);
                     }
                     else
                     {
-                        obj.Add("following", true);
+                        data = (IDictionary)data;
+                    }
+                    if (data.Contains("following"))
+                    {
+                        data["following"] = !((bool)data["following"]);
+                    }
+                    else
+                    {
+                        data.Add("following", true);
                     }
                     return cache[uri];
+                }
+            }
+            return null;
+        }
+    }
+    public class MongoService : IEntifyService
+    {
+        public override object Request(string method, string uri, string payload)
+        {
+            MongoClient client = new MongoClient();
+            MongoServer server = client.GetServer();
+            MongoDatabase db = server.GetDatabase("local");
+            MongoCollection<BsonDocument> nodes = db.GetCollection("nodes");
+            if (method == "GET" || method == "SUBSCRIBE")
+            {
+                MongoCursor<BsonDocument> result = nodes.Find(new QueryDocument("_id", new BsonString(uri.Split(':')[2])));
+                foreach (BsonDocument r in result)
+                {
+                    var data = r.ToJson();
+                    server.Disconnect();
+                    return data;
+                }  
+            }
+            if (method == "PUT")
+            {
+                MongoCursor<BsonDocument> result = nodes.Find(new QueryDocument("_id", new BsonString(uri.Split(':')[2])));
+                foreach (BsonDocument r in result)
+                {
+                    var data = r.ToJson();
+                    server.Disconnect();
+                    return data;
                 }
             }
             return null;
@@ -420,7 +475,7 @@ namespace Entify.Models
 
         void sendWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            try
+           try
             {
                 object[] data = (object[])e.Argument;
                 string method = (string)data[0];
@@ -432,7 +487,7 @@ namespace Entify.Models
                 wp.uri = (String)url;
                 e.Result = wp;
             }
-            catch (Exception ex)
+             catch (Exception ex)
             {
             }
         }

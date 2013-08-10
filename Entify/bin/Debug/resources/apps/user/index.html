@@ -14,7 +14,7 @@
             <td valign="top" width="64">
               <img src="{data.image}" width="128" height="128" class="img shadow" /></td>
             <td valign="top">
-              <p><a href="spotify:user:{data.username}">{data.username}</a></p>
+              <h2><a href="{data.uri}">{data.username}</a></h2>
               <div class="toolbar" id="toolbar">
               </div>
               <p class="description">{data.description}</p>
@@ -29,7 +29,16 @@
             </td>
           </tr>
         </table>
-
+        <div class="divider">Recent activity</div><br />
+        <div class="container">
+          {for post in data.feed}
+          <article>
+          <h2>{post.title}</h2>
+            <p>{post.text}</p>
+            <p>Published <a href="{post.uri}">{post.time}</a></p>
+          </article>
+          {end}
+        </div>
         {endslab}
         {slab friends}
         <table width="100%" class="grid">
@@ -44,6 +53,7 @@
           {end}
           </tbody>
         </table>
+
         {endslab}
       </script>
       <section id="overview">

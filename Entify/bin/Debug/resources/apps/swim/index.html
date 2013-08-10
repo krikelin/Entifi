@@ -15,14 +15,14 @@
             <td valign="top" width="64">
               <img src="{data.image}" width="128" height="128" class="img shadow" /></td>
             <td valign="top">
-              <p>{data.title}</p>
+              <h3><a href="{data.uri}">{data.title}</a> at <a href="{data.location.uri}">{data.location.title}</a></h3>
               <div class="toolbar" id="toolbar">
               
               </div>
               <p class="description">{data.description}</p>
            </td>
            <td valign="top">
-            <h2><a href="#" onclick="application.activate('images')">Images</a></h2>
+            <h3><a href="#" onclick="application.activate('images')">Images</a></h3>
             <ul class="flow">
               {for image in data.images}
               <a href="{image.uri}"><img src="{image.uri}" height="64" width="64" />
@@ -33,15 +33,19 @@
         </table>
         <table class="grid" width="100%">
         <thead>
-          <th width="30">Lap</th>
+          <th>Lap</th>
           <th>Distance</th>
+          <th>Time</th>
+          <th>Swimmer</th>
         </thead>
         <tbody>
           {for lap in data.laps}
           <tr>
             
-            <td width="30"><a href="{lap.sport.uri}">{lap.sport.title}</a></td>
+            <td ><a href="{lap.sport.uri}">{lap.sport.title}</a></td>
             <td>{lap.distance.value} {lap.distance.unit}</td>
+            <td> {lap.duration}</td>
+            <td><a href="{data.uri}">{data.username}</a></td>
           </tr>
           {end}
         </tbody>

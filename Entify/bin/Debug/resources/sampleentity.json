@@ -26,6 +26,14 @@
 		],
 		"description":"Description of the node goes here. The description is usually written in english. A node can be seen in a different kindo of aspect, regarding to the uri", 
 		"weight": 10, 
+		"author": {
+			"title": "A. Examplesson",
+			"uri": "{{service}}:author:12412414"
+		},
+		"manufactor": {
+			"title": "Manufactor Ltd",
+			"uri":"{{service}}:manufactor:manufactor"
+		},
 		"width": 300,
 		"condition": {
 			"title": "Good",
@@ -109,7 +117,10 @@
 			"title": "Happy",
 			"uri": "entifi:emotion:happy"
 		},
-		"duration": "360",
+		"duration": {
+			"value": 360,
+			"unit": "min"
+		},
 		"explicit": true,
 		"company": {
 			"title": "Alex AB",
@@ -128,8 +139,32 @@
 				"role": "Web Developer"
 			}
 		],
+		"feed": [
+			{
+				"title":"I love you",
+				"text": "Para para para",
+				"time": "2013-01-01 12:00:00 CET"
+			}
+		],
 		"birthday": "1991-03-16",
-		
+		"tracks":[
+			{
+				"title":"Aquasphere",
+				"uri":"{{service}}:{{app}}:2FOROU2Fdxew72QmueWSUy",
+				"artists": [
+					{
+						"title": "Dr. Sounds",
+						"uri": "spotify:artist:2FOROU2Fdxew72QmueWSUy",
+						"type": "featured"
+					}
+				],
+				"release": {
+					"uri":"spotify:album:123523452335",
+					"title": "Aquasphere"
+				},
+				"no": 1
+			}
+		],
 		"address": "Charlottag, 16",
 		"city": "Lidköping",
 		"genre": "Ambient / new age",

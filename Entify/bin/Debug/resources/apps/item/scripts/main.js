@@ -31,3 +31,9 @@ application.entify.subscribe(EntifyCore.getUri()).done(function (args) {
 	var followButton = FollowButton.forNode(node, {});
 	document.querySelector('#toolbar').appendChild(followButton.node);
 })
+
+function buy(uri) {
+	application.entify.send('BUY', uri, {qty: 1}).done(function (result) {
+		console.log("Product brought");
+	});
+}

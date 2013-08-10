@@ -59,6 +59,12 @@
     <Reference Include="LuaInterface">
       <HintPath>..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\LuaInterface.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\mongocsharpdriver.1.8.2\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\mongocsharpdriver.1.8.2\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="NDjango.BistroIntegration">
       <HintPath>..\..\..\..\..\Downloads\NDjango_0.9.6.0\NDjango_0.9.6.0\NDjango.BistroIntegration.dll</HintPath>
     </Reference>

@@ -80,10 +80,14 @@
             // navigator1
             // 
             this.navigator1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.navigator1.CanGoBack = true;
+            this.navigator1.CanGoForward = true;
             this.navigator1.Location = new System.Drawing.Point(13, 6);
             this.navigator1.Name = "navigator1";
             this.navigator1.Size = new System.Drawing.Size(61, 29);
             this.navigator1.TabIndex = 14;
+            this.navigator1.NavigatedForward += new System.EventHandler(this.navigator1_NavigatedForward);
+            this.navigator1.NavigatedBack += new System.EventHandler(this.navigator1_NavigatedBack);
             // 
             // searchBox1
             // 

@@ -81,7 +81,7 @@ namespace Entify
             InitializeComponent();
             RegistredAppTypes.Add("entity", typeof(Apps.entity));
             Program.form1 = this;
-            this.Navigate("spotify:spider:2dlL3nKQLsTfK5k8fKSX2I$index.xml");
+            this.Navigate("spotify:user:drsounds");
           
         }
         /// <summary>

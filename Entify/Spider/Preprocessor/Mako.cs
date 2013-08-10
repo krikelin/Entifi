@@ -517,8 +517,14 @@ namespace Entify.Spider.Preprocessor
                 CallStack += "\");";
             }
             // Run the code
-            RuntimeMachine.RegisterFunction("__printx", (MethodBase)new printx_func(__printx).Method, this);
-            RuntimeMachine.RegisterFunction("synchronize_data", (MethodBase)new synchronize_func(synchronize_data).Method, this);
+            try
+            {
+                RuntimeMachine.RegisterFunction("__printx", (MethodBase)new printx_func(__printx).Method, this);
+                RuntimeMachine.RegisterFunction("synchronize_data", (MethodBase)new synchronize_func(synchronize_data).Method, this);
+            }
+            catch (Exception e)
+            {
+            }
             //RuntimeMachine.RegisterFunction("include", (MethodBase)new synchronize_func(include).Method, this);
             CallStack = finalOutput.ToString();
 

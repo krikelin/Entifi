@@ -1,0 +1,158 @@
+{
+	"status": "OK",
+	"response": "OK",
+	"uri": "{{uri}}",
+	"node": {
+		"uri": "{{uri}}",
+		"title": "{{id}}",
+		"friends":[
+			{
+				"username":"Alecca",
+				"image": "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash3/602017_3409112642758_624430002_n.jpg",
+				"uri":"spotify:user:alecca"
+			},
+			{
+				"username":"Joy",
+				"image": "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash3/602017_3409112642758_624430002_n.jpg",
+				"uri": "spotify:user:joy"
+			}
+		],
+		"image": "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash3/602017_3409112642758_624430002_n.jpg",
+		"images": [
+			{
+				"title": "Alecca badar i klänning",
+				"uri": "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash3/602017_3409112642758_624430002_n.jpg"
+			}
+		],
+		"description":"Description of the node goes here. The description is usually written in english. A node can be seen in a different kindo of aspect, regarding to the uri", 
+		"weight": 10, 
+		"width": 300,
+		"condition": {
+			"title": "Good",
+			"uri": "entifi:condition:good"
+		},
+		"height": 300,
+		"canoncial": "Dr. Sounds",
+		"username": "{{id}}",
+		"price": {
+			"unit": "USD",
+			"value": 250
+		},
+		"distance": {
+			"unit":"meter",
+			"value": 750
+		},
+		"laps": [
+			{
+				"sport": {
+					"title":"Swimming",
+					"uri": "entifi:sport:swimming"
+				},
+				"distance": {
+					"unit": "meter",
+					"value": 50
+				}
+			},
+			{
+				"sport": {
+					"title":"Swimming",
+					"uri": "entifi:sport:swimming"
+				},
+				"distance": {
+					"unit": "meter",
+					"value": 50
+				}
+			},
+			{
+				"sport": {
+					"title":"Swimming",
+					"uri": "entifi:sport:swimming"
+				},
+				"distance": {
+					"unit": "meter",
+					"value": 50
+				}
+			},
+		],
+		"sku": "TA-01412",
+		"gender":"female",
+		"interests": [
+			{
+				"title":"Swimming",
+				"uri": "entifi:interest:swimming"
+			},
+			{
+				"title":"Aqua Jogging",
+				"uri": "entifi:interest:aquajogging"
+			}
+		],
+		"author": {
+			"title": "Alexander",
+			"uri": "spotify:user:drsounds"
+		},
+		"emails":[
+			{
+				"type": "primary",
+				"address": "drsounds@gmail.com"
+			}
+		],
+		"email": "alecca@entifi.com",
+		"created": "2013-01-01 12:00:00",
+		"voltage": 9512,
+		"country": {
+			"title": "Sweden",
+			"uri": "entifi:country:sweden"
+		},
+		"qi": 9252,
+		"karma": 41252,
+		"emotion": {
+			"title": "Happy",
+			"uri": "entifi:emotion:happy"
+		},
+		"duration": "360",
+		"explicit": true,
+		"company": {
+			"title": "Alex AB",
+			"uri":"entifi:company:alexab"
+		},
+		"resume": [
+			{
+				"company": "E-logistik Marknadsservice",
+				"type": "Internship",
+				"role": "Programmer",
+				"uri": "entifi:vacation:2FOROU2Fdxew72QmueWSUy"
+			},
+			{
+				"company": "MaKe WeBo",
+				"type": "Internship",
+				"role": "Web Developer"
+			}
+		],
+		"birthday": "1991-03-16",
+		
+		"address": "Charlottag, 16",
+		"city": "Lidköping",
+		"genre": "Ambient / new age",
+		"artists":[
+			{
+				"uri":"spotify:artist:2FOROU2Fdxew72QmueWSUy",
+				"title":"Dr. Sounds",
+				"user":"spotify:user:drsounds"
+			}
+		],
+		"release": {
+			"name": "Bungalow",
+			"year": "2013",
+			"upc": "0881412512",
+			"uri": "spotify:release:a"
+		},
+		"duration": "3:90",
+		"tracks":[
+			{
+				"title":"Chronomics",
+				"uri":"spotify:track:5123452323"
+			}
+		]
+
+	}
+}

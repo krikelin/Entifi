@@ -10,6 +10,7 @@
   <body>
     <script type="text/slab" id="template">
       {slab main}
+
        <table width="100%">
           <tr>
             <td valign="top" width="64">
@@ -18,34 +19,17 @@
               <p>{data.title}</p>
               <div class="toolbar" id="toolbar">
               
-              </div>
+          </div>
               <p class="description">{data.description}</p>
            </td>
            <td valign="top">
-            <h2><a href="#" onclick="application.activate('images')">Images</a></h2>
-            <ul class="flow">
-              {for image in data.images}
-              <a href="{image.uri}"><img src="{image.uri}" height="64" width="64" />
-              {end}
-            </ul>
+              <p>Price</p>
+              <p>{data.price.value} {data.price.unit}</p>
             </td>
           </tr>
+        </tr>
         </table>
-        <table class="grid" width="100%">
-        <thead>
-          <th width="30">Lap</th>
-          <th>Distance</th>
-        </thead>
-        <tbody>
-          {for lap in data.laps}
-          <tr>
-            
-            <td width="30"><a href="{lap.sport.uri}">{lap.sport.title}</a></td>
-            <td>{lap.distance.value} {lap.distance.unit}</td>
-          </tr>
-          {end}
-        </tbody>
-      </table>
+        
       {endslab}
     </script>
     <section id="overview">

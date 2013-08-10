@@ -267,40 +267,51 @@ namespace Entify.Models
     public class W3Service : IEntifyService
     {
         public static Hashtable cache = new Hashtable();
-        public override object LoadObject(string uri)
-        {
-            if (cache.ContainsKey(uri))
-            {
-                return Newtonsoft.Json.JsonConvert.SerializeObject(cache[uri]);
-            }
-            Thread.Sleep((int)new Random().Next(0, 3000));
-            Hashtable result = new Hashtable();
-            result.Add("title", "Test");
-            result.Add("description", "t");
-            result.Add("price", 20);
-            result.Add("weight", 150);
-            result.Add("height", 160);
-            result.Add("laps", new Random().Next(1, 16));
-            result.Add("depth", 160);
-            result.Add("id", uri.Split(':')[2]);
-            result.Add("uri", uri);
-            result.Add("following", false);
-            result.Add("image", "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRLwbS1ceNk8GCHaGrDfPwKZWb4CMutkQS7r2rsoDAHC8aqdQiJ");
-            
-            var res = Newtonsoft.Json.JsonConvert.SerializeObject(result);
-            if(!cache.ContainsKey(uri))
-            cache.Add(uri, result);
-            return res;
-        }
+        
 
         public override object Request(string method, string uri, string payload)
         {
-            Thread.Sleep((int)new Random().Next(0, 3000));
+            if (method == "GET")
+            {
+                var id = uri.Split(':')[2];
+                var app =uri.Split(':')[1];
+                var service = uri.Split(':')[0];
+                object result = null;
+                if (cache.ContainsKey(uri))
+                {
+                    return (cache[uri]);
+                }
+
+                Thread.Sleep((int)new Random().Next(0, 3000));
+                using (StreamReader sr = new StreamReader("resources/sampleentity.json"))
+                {
+                    var settings = new Newtonsoft.Json.JsonSerializerSettings();
+                   var json = sr.ReadToEnd();
+                   json = json.Replace("{{id}}", id);
+                   json = json.Replace("{{service}}", service);
+                   json = json.Replace("{{app}}", app);
+                   json = json.Replace("{{uri}}", uri);
+                    var r  = JObject.Parse(json);
+                    
+                    result = Newtonsoft.Json.JsonConvert.SerializeObject(r["node"]);
+                }
+                if (cache.ContainsKey(uri))
+                {
+                    cache[uri] = result;
+                }
+                else
+                {
+                    cache.Add(uri, result);
+                }
+                return result;
+
+            }
             if(method == "PUT") {
                 JObject json = JObject.Parse(payload);
                 if (cache.ContainsKey(uri))
                 {
                     Hashtable obj = (Hashtable)cache[uri];
+                    
                     foreach(KeyValuePair<string, JToken> o in json) 
                     {
                         if (obj.ContainsKey(o.Key))
@@ -312,6 +323,23 @@ namespace Entify.Models
                             obj.Add(o.Key, o.Value.ToString());
                         }
                     }
+                   
+                }
+            }
+            if (method == "FOLLOW")
+            {
+                if (cache.ContainsKey(uri))
+                {
+                    Hashtable obj = (Hashtable)cache[uri];
+                    if (obj.ContainsKey("following"))
+                    {
+                        obj["following"] = !((bool)obj["following"]);
+                    }
+                    else
+                    {
+                        obj.Add("following", true);
+                    }
+                    return cache[uri];
                 }
             }
             return null;
@@ -324,7 +352,6 @@ namespace Entify.Models
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
-        public abstract Object LoadObject(string uri);
         public abstract Object Request(string method, string uri, string payload);
         public class ObjectLoadedEventArgs {
             public IEntifyService Service;
@@ -364,7 +391,7 @@ namespace Entify.Models
             {
               
                 WorkerProcess data = new WorkerProcess();
-                data.data = LoadObject((string)e.Argument);
+                data.data = Request("GET", (string)e.Argument, "{}");
                 data.uri = (String)e.Argument;
                 e.Result = data;
             }

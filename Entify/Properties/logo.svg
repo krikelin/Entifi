@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="180"
+   height="180"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="C:\Users\Alecca\Documents\Visual Studio 2012\Projects\Entify\Entify\Properties\logo.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#93008f"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="1"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="129.81321"
+     inkscape:cy="63.330151"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1600"
+     inkscape:window-height="837"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-872.36218)">
+    <text
+       xml:space="preserve"
+       style="font-size:55.29016495px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+       x="19.23848"
+       y="1031.6208"
+       id="text3753"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3755"
+         x="19.23848"
+         y="1031.6208"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Microsoft Tai Le;-inkscape-font-specification:Microsoft Tai Le">€ntify</tspan></text>
+    <path
+       transform="matrix(0.25786162,0,0,0.25786162,93.371521,960.04412)"
+       d="m 93.57143,73.39286 c 0,15.680942 -12.711915,28.39286 -28.392856,28.39286 -15.680942,0 -28.392857,-12.711918 -28.392857,-28.39286 0,-15.680941 12.711915,-28.392856 28.392857,-28.392856 15.680941,0 28.392856,12.711915 28.392856,28.392856 z"
+       sodipodi:ry="28.392857"
+       sodipodi:rx="28.392857"
+       sodipodi:cy="73.39286"
+       sodipodi:cx="65.178574"
+       id="path3761"
+       style="fill:#ffffff;fill-opacity:1"
+       sodipodi:type="arc" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1"
+       id="path3757"
+       sodipodi:cx="65.178574"
+       sodipodi:cy="73.39286"
+       sodipodi:rx="28.392857"
+       sodipodi:ry="28.392857"
+       d="m 93.57143,73.39286 c 0,15.680942 -12.711915,28.39286 -28.392856,28.39286 -15.680942,0 -28.392857,-12.711918 -28.392857,-28.39286 0,-15.680941 12.711915,-28.392856 28.392857,-28.392856 15.680941,0 28.392856,12.711915 28.392856,28.392856 z"
+       transform="matrix(0.49685534,0,0,0.49685534,97.794255,930.00369)" />
+  </g>
+</svg>

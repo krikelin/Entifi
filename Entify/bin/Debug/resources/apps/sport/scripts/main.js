@@ -1,4 +1,3 @@
-
 application.entify.subscribe(EntifyCore.getUri()).done(function (args) {
 	var node = args;
 	console.log(args);
@@ -18,10 +17,6 @@ application.entify.subscribe(EntifyCore.getUri()).done(function (args) {
 			{ 
 				id:'overview',
 				title:'Overview'
-			},
-			{
-				id: 'friends',
-				title: 'Friends'
 			}
 		]
 	});
@@ -33,4 +28,5 @@ application.entify.subscribe(EntifyCore.getUri()).done(function (args) {
 
 	var followButton = FollowButton.forNode(node, {});
 	document.querySelector('#toolbar').appendChild(followButton.node);
-})
+});
+application.activate('overview');

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<view xmlns="http://www.segurify.com/TR/2011">
+	<title>a</title>
+	<section id="overview" title="Overview">
+		<hbox>
+			<img uri="http://www.dn.se/ImageHandler.axd/?id=1022542&imageFormat=original" shadow="true" />
+			<vbox flex="1">
+				<link uri="${a}">Title</link>
+			</vbox>
+		</hbox>
+	</section>
+</view>

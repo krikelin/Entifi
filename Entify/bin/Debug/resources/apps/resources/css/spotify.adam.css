@@ -15,7 +15,7 @@ body, .e-tab-active {
 	border-bottom: 1px solid #444;
 }
 .description {
-	padding: 5px;
+	padding-left: 5px;
 }
 body {
 
@@ -80,7 +80,7 @@ article {
 	padding: 50px;
 }
 .divider {
-	background: rgba(255, 255, 255, .25);
+	background: #616161;
 	color: white;
 	
 	width: 100%;
@@ -105,8 +105,8 @@ section {
 	border-radius: 4px;
 	border-collapse: collapse;
 }
-.table tr:nth-child(2n) {
-	background: rgba(0, 0, 0, .25);
+.grid tr:nth-child(2n) {
+	background: #313131;
 }
 .table tr td {
 	padding: 3px;
@@ -126,8 +126,7 @@ nav {
 	position: fixed;
 	top: 0px;
 	
-	background-color: lightness(@tabbar-color, -15%);
-	background-color: lightness(saturation(@tabbar-color, -15%), -11%);
+	background-color: #636363;
 	color: white;
 
 	height: 23px;
@@ -135,8 +134,8 @@ nav {
 }
 .e-tabbar .e-tab {
 	text-shadow: 0px 1px 0px black;
-	border-right: 1px solid lightness(@tabbar-color, -22%);
-	border-left: 1px solid lightness(@tabbar-color, -22%);
+	border-right: 1px solid #4a4a4a;
+	border-left: 1px solid #747474;
 	height: 23px;
 	
 }
@@ -153,3 +152,6 @@ article {
 	padding: 20px;
 }
 
+.description {
+	padding-top :0px;
+}

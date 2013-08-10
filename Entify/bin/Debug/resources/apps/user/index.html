@@ -14,17 +14,16 @@
             <td valign="top" width="64">
               <img src="{data.image}" width="128" height="128" class="img shadow" /></td>
             <td valign="top">
-              <p><a href="{arguments[0]}:{arguments[1]}:{arguments[2]}">{arguments}</a></p>
+              <p><a href="spotify:user:{data.username}">{data.username}</a></p>
               <div class="toolbar" id="toolbar">
               </div>
               <p class="description">{data.description}</p>
           </td>
             <td valign="top" >
-              <h3>Friends</h3>
+              <h3><a href="#" onclick="application.activate('friends')">Friends</a></h3>
               <ul style="float: left" class="flow">
-                <li><a href="{arguments[0]}:{arguments[1]}:joy06h"><img width="64" height="64" src="http://bilder.filmcafe.se/users/g/gungnir/194178_320.jpg" /><br/>Joy Leros</a></a></a>
-                <li><a href="{arguments[0]}:{arguments[1]}:alecca"><img  height="64" width="64" src="http://bilder.filmcafe.se/users/g/gungnir/194178_320.jpg" /><br />Alecca Krikelin</a></a>
-                  <li><a href="{arguments[0]}:{arguments[1]}:drsounds"><img  height="64" width="64" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/c27.27.340.340/s160x160/602017_3409112642758_624430002_n.jpg" /><br />Alecca Krikelin</a></a>
+                {for friend in data.friends}
+                <li><a href="{friend.uri}"><img width="64" height="64" src="{friend.image}" /><br/>{friend.username}s</a></a></a>{end}
               
               </ul>
             </td>
@@ -32,12 +31,28 @@
         </table>
 
         {endslab}
+        {slab friends}
+        <table width="100%" class="grid">
+          <thead>
+            <th>Username</th>
+            <th></th>
+          </thead>
+          <tbody>
+          {for friend in data.friends}
+          <tr><td>
+          <a href="spotify:user:{friend.username}">{friend.username}</a></td></tr>
+          {end}
+          </tbody>
+        </table>
+        {endslab}
       </script>
       <section id="overview">
     		<div id="content-main">
         </div>
       </section>
       <section id="friends">
+        <div id="content-friends">
+        </div>
       </section>
       <script src="entify://util/slab.js" type="text/javascript"></script>
       <script src="entify://resources/scripts/models.js" type="text/javascript"></script>

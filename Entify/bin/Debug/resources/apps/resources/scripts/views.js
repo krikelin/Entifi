@@ -47,9 +47,16 @@
 		this.node.classList.add('btn-follow');
 		
 		this.addEventListener('click', function () {
-			c.application.entify.send('PUT', self.enode.uri, {following: !self.enode.data.following}).done(function (d) {
-				self.node.classList.add('btn-subscribed');
-				self.applyOptions({text:'Following'});
+			c.application.entify.send('FOLLOW', self.enode.uri, {}).done(function (node) {
+				console.log(e);
+				if(e.data.following) {
+					self.node.classList.add('btn-subscribed');
+					self.applyOptions({text:'Following'});
+				} else {
+					self.node.classList.remove('btn-subscribed');
+					self.applyOptions({text:'Follow'});
+
+				}
 				console.log('subscribed');
 			});
 		})

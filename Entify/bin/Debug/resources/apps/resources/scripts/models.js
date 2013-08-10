@@ -47,6 +47,12 @@
 			console.log(e);
 			try {
 				self.entify.conversations[e.uri].defer(e);
+				for(var i = 0; i < self.nodes; i++) {
+					var node = self.nodes[i];
+					if(self.nodes.uri === e.uri) {
+						self.nodes[i] = e;
+					}
+				}
 			} catch (e) {
 				//alert(e);
 			}
@@ -98,7 +104,7 @@
 			var node = new c.Node(data.uri, data.data);
 			self.nodes.push(node);
 			console.log(c.entify.subscriptions);
-			self.entify.subscriptions[data.uri].defer(data);
+			self.entify.subscriptions[data.uri].defer(node);
 			/**/
 			console.log("Data recieved");
 		});

@@ -110,11 +110,11 @@ namespace Entify.Apps
             {
                 if (this.replies.ContainsKey(e.Uri))
                 {
-                    this.replies[e.Uri] = e.Result;
+                    this.replies[e.Uri] = JsonConvert.SerializeObject(e.Result);
                 }
                 else
                 {
-                    this.replies.Add(e.Uri, e.Result);
+                    this.replies.Add(e.Uri, JsonConvert.SerializeObject(e.Result));
                 }
                 this.Host.webView.ExecuteScript("application.notify('reply', {uri: '" + e.Uri + "', method: '" + e.Method + "', data: JSON.parse(EntifyCore.getReply('" + e.Uri + "'))})");
                
@@ -137,11 +137,11 @@ namespace Entify.Apps
             {
                 if (this.cache.ContainsKey(e.Uri))
                 {
-                    this.cache[e.Uri] = e.Result;
+                    this.cache[e.Uri] = e.Result.GetType() == typeof(string) ? e.Result : JsonConvert.SerializeObject(e.Result);
                 }
                 else
                 {
-                    this.cache.Add(e.Uri, e.Result);
+                    this.cache.Add(e.Uri,  e.Result.GetType() == typeof(string) ? e.Result : JsonConvert.SerializeObject(e.Result));
                 }
             //   this.Host.webView.RegisterJsObject("__data", e.Result);
                 this.Host.webView.ExecuteScript("application.notify('recievedata', {data: JSON.parse(EntifyCore.getData('" + e.Uri + "')), uri: '" + e.Uri + "'})");
